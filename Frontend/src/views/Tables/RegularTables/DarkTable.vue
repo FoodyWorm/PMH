@@ -7,7 +7,7 @@
         <el-table class="table-responsive table table-dark"
                   header-row-class-name="thead-dark"
                   :data="projects">
-            <el-table-column label="Project"
+            <el-table-column label="Projects"
                              min-width="310px"
                              prop="name">
                 <template v-slot="{row}">

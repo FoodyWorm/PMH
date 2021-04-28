@@ -47,7 +47,7 @@
         <!-- Nav item: Projects -->
         <b-nav-item to="/dashboard">
           <!-- Icon & Name -->
-          <i class="ni ni-planet"></i> <span class="nav-link-inner--text">Projects</span>
+          <i class="ni ni-calendar-grid-58"></i> <span class="nav-link-inner--text">Projects</span>
         </b-nav-item>
             
         <!-- Nave Item: Register -->

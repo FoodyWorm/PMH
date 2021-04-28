@@ -1,35 +1,27 @@
+// 필요한 모듈 적용 (Dashboard, AuthLayout, NotFoundPage)
 import DashboardLayout from '@/views/Layout/DashboardLayout.vue';
 import AuthLayout from '@/views/Pages/AuthLayout.vue';
 import NotFound from '@/views/NotFoundPage.vue';
 
+// 라우터
 const routes = [
   {
+    // 시작페이지 요청 및 컴포넌트
     path: '/',
     redirect: 'dashboard',
     component: DashboardLayout,
+
+    // 메인 요청 및 컴포넌트 (Projects, Add, User Profile)
     children: [
       {
         path: '/dashboard',
         name: 'dashboard',
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
         component: () => import(/* webpackChunkName: "demo" */ '../views/Dashboard.vue')
-      },
-      {
-        path: '/icons',
-        name: 'icons',
-        component: () => import(/* webpackChunkName: "demo" */ '../views/Icons.vue')
       },
       {
         path: '/profile',
         name: 'profile',
         component: () => import(/* webpackChunkName: "demo" */ '../views/Pages/UserProfile.vue')
-      },
-      {
-        path: '/maps',
-        name: 'maps',
-        component: () => import(/* webpackChunkName: "demo" */ '../views/GoogleMaps.vue')
       },
       {
         path: '/tables',
@@ -38,6 +30,8 @@ const routes = [
       }
     ]
   },
+
+  // 서브 요청 및 컴포넌트 (Login, Register, NotFound)
   {
     path: '/',
     redirect: 'login',

@@ -1,38 +1,21 @@
-#!/usr/bin/env node
-
-/**
- * Module dependencies.
- */
-
+/* 모듈화된 app.js를 가져와서 이어서 사용 및 모듈 가져오기 */
 var app = require('../app');
 var debug = require('debug')('backend:server');
 var http = require('http');
 
-/**
- * Get port from environment and store in Express.
- */
-
+/* 포트번호 생성 및 적용 */
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
-/**
- * Create HTTP server.
- */
-
+/* Express 서버 생성 */
 var server = http.createServer(app);
 
-/**
- * Listen on provided port, on all network interfaces.
- */
-
+/* Express서버를 포트 3000으로 실행하며, 에러가 발생하면 onError함수를 실행하고 서버에 접속하면 onListening함수를 실행 */
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
-/**
- * Normalize a port into a number, string, or false.
- */
-
+/* 안전한 포트생성 함수 */
 function normalizePort(val) {
   var port = parseInt(val, 10);
 
@@ -49,10 +32,7 @@ function normalizePort(val) {
   return false;
 }
 
-/**
- * Event listener for HTTP server "error" event.
- */
-
+/* 에러 발생시 대처 함수 */
 function onError(error) {
   if (error.syscall !== 'listen') {
     throw error;
@@ -77,10 +57,7 @@ function onError(error) {
   }
 }
 
-/**
- * Event listener for HTTP server "listening" event.
- */
-
+/* 서버 접속시 실행 함수 */
 function onListening() {
   var addr = server.address();
   var bind = typeof addr === 'string'
