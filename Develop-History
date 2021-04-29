@@ -1,3 +1,4 @@
+<!-- Commit Log -->
 - 2021.04.28. WorkSpace(0.1) - [ 템플릿 적용 및 정리 ]
 Frontend: BootStrapVue Argon DashBoard
 Backend: express-generator
@@ -10,7 +11,7 @@ Template: UserProfile 구조정리 및 이해 (
 
 
 - 2021.04.28. WorkSpace(0.2) - [ 모듈 추가 및 적용 ]
-Frontend: vuex, axios 모듈 추가
+Frontend: vuex, axios
 Backend: mysql, connect-history-api-fallback
 
 
@@ -24,12 +25,23 @@ Template: 템플릿 정리 및 이해하기 (
 )
 
 
+- 2021.04.29. WorkSpace(0.4) - [ 템플릿 라우터 테스트 및 정리 ]
+Template: 라우터 변경 (
+    routers.js (
+        '/'
+        '/login'
+        '/DashBoard
+        ...
+    )
+)
+
+
 
 -----------------------------------------------------------------------------------------------
 <!-- 각 구조 정리 및 설명 -->
 
 // 확장자
-yarn.lock: nodeMoudels가 너무 커서, 고안하여 탄생하게된 JavaScirpt 라이브러리 이다. 매우 가볍다고 한다.
+yarn.lock: node_moudels가 너무 커서, 고안하여 탄생하게된 JavaScirpt 라이브러리 이다. 매우 가볍다고 한다.
 
 .enc: 자바의 Final 처럼, 한번 지정해놓고 계속 전역으로 사용할 변수를 선언하게 해주는 파일 확장자 이다. 시스템 변수라고도 한다.
 
@@ -76,9 +88,9 @@ WorkSpace: 프로젝트의 작업공간 이름이다.
             -> components: Vue컴포넌트 파일이 모여있는 폴더이다. 이곳에 있는 Vue 파일은 필요할 때 가져다 쓰는 파일들이다.
             -> directives: 모바일 화면으로 전환될 때, 나오는 메뉴바(?) 가 아닐까 생각한다.
             -> plugins: 대쉬보드같은 고급 기능을(?) 사용하기 위해서 모아놓은 모듈폴더 인 것 같다.
-            -> routers: 이곳에서는 사용자의 요청을 받아서 그 요청을 수행하는 폴더이다.
+            -> routers: 이곳에서는 사용자의 요청을 받아서 그 요청을 수행하는 폴더이다. (중요)
             -> util: 알 수 는 없지만, 지레짐작으로 보건데 이 곳에는 애니메이션의 움직임 속도(?)를 조절하는 폴더인 것 같다.
-            -> views: 프론트엔드의 핵심파일이 모두 모여있는 곳 이다. 실질적으로 사용자에게 보여지는 파일들이 존재한다.
+            -> views: 프론트엔드의 핵심파일이 모두 모여있는 곳 이다. 실질적으로 사용자에게 보여지는 파일들이 존재한다. (중요)
 
      -> Develop-History: 이 프로젝트의 모든 설명과 일지가 포함되어있는 TXT형식의 파일이다.
 

@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import DashboardLayout from '../views/Starter/SampleLayout.vue';
-import Starter from '../views/Starter/SamplePage.vue';
+import AuthLayout from '../views/Pages/UserProfile/Login.vue'
 
 Vue.use(Router);
 
@@ -10,12 +9,12 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      redirect: '/dashboard',
-      component: DashboardLayout,
+      redirect: '/login',
+      component: AuthLayout,
       children: [
         {
-          path: 'dashboard',
-          name: 'dashboard',
+          path: 'login',
+          name: 'login',
           components: { default: Starter }
         }
       ]

@@ -44,10 +44,10 @@
       <!-- Nav Content -->
       <b-navbar-nav  class="align-items-lg-center ml-lg-auto">
         
-        <!-- Nav item: Projects -->
-        <b-nav-item to="/dashboard">
-          <!-- Icon & Name -->
-          <i class="ni ni-calendar-grid-58"></i> <span class="nav-link-inner--text">Projects</span>
+        <!-- Nave Item: Login -->
+        <b-nav-item to="/login">
+          <i class="ni ni-key-25"></i>
+          <span class="nav-link-inner--text">Login</span>
         </b-nav-item>
             
         <!-- Nave Item: Register -->
@@ -56,17 +56,19 @@
           <span class="nav-link-inner--text">Register</span>
         </b-nav-item>
 
-        <!-- Nave Item: Login -->
-        <b-nav-item to="/login">
-          <i class="ni ni-key-25"></i>
-          <span class="nav-link-inner--text">Login</span>
+        <!-- Nav item: Projects 
+        <b-nav-item to="/dashboard">
+          <-- Icon & Name 
+          <i class="ni ni-calendar-grid-58"></i> <span class="nav-link-inner--text">Projects</span>
         </b-nav-item>
+        -->
 
-        <!-- Nave Item: Profile -->
+        <!-- Nave Item: Profile 
         <b-nav-item to="/profile">
           <i class="ni ni-single-02"></i>
           <span class="nav-link-inner--text">Profile</span>
         </b-nav-item>
+        -->
 
       </b-navbar-nav>
     </template>
