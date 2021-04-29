@@ -15,13 +15,13 @@ const routes = [
       // 시작요청
       {
         path: '/',
-        name: 'login',
+        name: 'login1',
         component: () => import(/* webpackChunkName: "demo" */ '../views/Pages/Login.vue')
       },
       // 로그인 요청
       {
         path: '/login',
-        name: 'login',
+        name: 'login2',
         component: () => import(/* webpackChunkName: "demo" */ '../views/Pages/Login.vue')
       },
       // 회원가입 요청
