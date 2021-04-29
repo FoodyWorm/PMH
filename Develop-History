@@ -35,6 +35,7 @@ Template: 라우터 변경 (
     )
 )
 
+
 - 2021.04.29. WorkSpace(0.5) - [ Login.vue & Register.vue 정규식 적용 및 SweetAlret2사용]
     1. 한글정규식
     2. 영어숫자정규식
@@ -42,8 +43,18 @@ Template: 라우터 변경 (
     4. 빈칸정규식
     5. SweetAlret2 경고창 적용
 
+
 - 2021.04.29. WorkSpace(0.6) - [ Submit 시도 후 실패시 남아있는 Data값 제거 ]
     1. location.reload(); 적용
+    2. axios를 사용한, Restful API 요청 생성
+
+- 2021.04.29. WorkSpace(0.7) - [ DataBase & Table ]
+    1. DataBase 생성 및 테이블 정의
+
+
+
+
+
 
 
 
