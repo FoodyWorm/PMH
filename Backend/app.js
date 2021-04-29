@@ -21,7 +21,6 @@ app.use(require('connect-history-api-fallback')());
 
 // 가져온 라우터 주소와 사용자 요청을 매칭 //
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 
 // 모든, 폴더에서 이 기능들이 적용 될 수 있도록 적용 //
 module.exports = app;

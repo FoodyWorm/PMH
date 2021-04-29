@@ -13,9 +13,9 @@ export default new Router({
       component: AuthLayout,
       children: [
         {
-          path: 'login',
+          path: '/login',
           name: 'login',
-          components: { default: Starter }
+          components: { default: AuthLayout }
         }
       ]
     }

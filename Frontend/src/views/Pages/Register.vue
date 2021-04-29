@@ -28,7 +28,7 @@
         <!-- Register Form Title -->
         <b-card-header class="bg-transparent pb-1">
           <div class="text-muted text-center mt-2 mb-1">
-            <h1>Sign Up</h1>
+            <h1>Register</h1>
           </div>  
         </b-card-header>
       
@@ -40,50 +40,66 @@
             <!-- Name Form -->
             <base-input alternative
                       class="mb-3"
-                      prepend-icon="ni ni-hat-3"
-                      placeholder="Name"
-                      name="Name"
+                      name="name"
                       :rules="{required: true}"
-                      v-model="model.name">
+                      prepend-icon="ni ni-single-02"
+                      placeholder="Name"
+                      v-model="model.name"
+                      v-on:keydown="onlyKoreaName"
+                      v-on:keyup="onlyKoreaName"
+            >
             </base-input>
 
             <!-- ID Form -->
             <base-input alternative
                       class="mb-3"
-                      name="ID"
-                      :rules="{required: true, id: true, min: 10, max:15}"
+                      name="id"
+                      :rules="{required: true, min: 6, max:15}"
                       prepend-icon="ni ni-key-25"
                       placeholder="ID"
-                      v-model="model.id">
+                      v-model="model.id"
+                      v-on:keydown="onlyEngNumId"
+                      v-on:keyup="onlyEngNumId"
+            >
             </base-input>
 
             <!-- PassWord Form -->
             <base-input alternative
                       class="mb-3"
-                      name="Password"
+                      name="password"
                       :rules="{required: true, min: 6, max:20}"
                       prepend-icon="ni ni-lock-circle-open"
                       type="password"
-                      placeholder="password"
-                      v-model="model.password">
+                      placeholder="Password"
+                      v-model="model.password"
+                      v-on:keydown="onlyEngNumPassword"
+                      v-on:keyup="onlyEngNumPassword"
+            >
             </base-input>
 
-            <!-- Department -->
-            <base-input>
-            <select class="form-control" name="department">
-                  <option>부서선택</option>
-                  <option>대표</option>
-                  <option>R&D</option>
-                  <option>스마트팜</option>
-                  <option>영업마케팅</option>
-                  <option>경영지원</option>
-                  <option>물류</option>
-            </select>
+            <!-- Department Form -->
+            <base-input lternative
+                      class="mb-3"
+                      name="select"
+                      prepend-icon="ni ni-badge"
+                      :rules="{required: true, min: 1}"
+            >
+
+              <!-- Select -->
+              <select class="form-control" name="department" v-model="model.department" >
+                    <option>Department</option>
+                    <option>대표</option>
+                    <option>R&D</option>
+                    <option>스마트팜</option>
+                    <option>영업마케팅</option>
+                    <option>경영지원</option>
+                    <option>물류</option>
+              </select>
             </base-input>
 
             <!-- Submit Button -->   
             <div class="text-center">
-            <b-button type="submit" variant="primary" class="mt-4">Create account</b-button>
+            <b-button v-on:click="onlyInputOne" type="submit" variant="primary" class="mt-4">Create account</b-button>
             </div>
 
           </b-form>
@@ -98,6 +114,11 @@
 
 
 <script>
+/*   JavaScript   */
+import axios from 'axios'
+import Swal from 'sweetalert2'
+
+/*   Vue Instance   */
 export default {
   name: 'register',
   data() {
@@ -106,16 +127,99 @@ export default {
         name: '',
         id: '',
         password: '',
-        department: ''
-        
+        department: 'Department'
       }
+      
     }
   },
   methods: {
+    // 서버에 회원가입 요청
     onSubmit() {
-       // Register Submit Fuction Here
+      console.log("Register Try");
+       axios.post('/registerTry')
+          .then((response) => {
+            console.log("Response: " + response);
+          })
+          .catch((error) => {
+            console.log("Error: " + error);
+          });
+     
+    },
+    // 회원 이름 정규식
+    onlyKoreaName(){
+      console.log("Name: " + this.model.name);
+      const reg = /^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]*$/;
+        if(reg.exec(this.model.name) == null){
+          alert("한글만 입력해주세요. (3자 ~ 5자 이내)");
+          return this.model.name = this.model.name.slice(0,-1);
+        }
+    },
+    // 회원 ID 정규식
+    onlyEngNumId(){
+      console.log("ID: " + this.model.id);
+      const reg = /[^a-z0-9]/gi;
+        if(reg.exec(this.model.id) !== null){
+          alert("영문, 숫자만 입력해주세요. (6자 ~ 15자 이내)");
+          return this.model.id = this.model.id.slice(0,-1);
+        }
+    },
+    // 회원 Password 정규식
+    onlyEngNumPassword(){
+      console.log("Password: " + this.model.password);
+      const reg = /[^a-z0-9]/gi;
+        if(reg.exec(this.model.password) !== null){
+          alert("영문, 숫자만 입력해주세요. (6자 ~ 15자 이내)");
+          return this.model.password = this.model.password.slice(0,-1);
+        }
+    },
+    // Submit 정규식
+    onlyInputOne(){
+      // LOG
+      console.log("ID: " + this.model.id);
+      console.log("Name: " + this.model.name);
+      console.log("Password: " + this.model.password);
+      console.log("Department: " + this.model.department);  
+
+        // 입력값 비교확인 (Name, ID, Password, Department)
+        if(this.model.name == ""){
+          Swal.fire({
+            title: 'Error!',
+            text: '이름을 입력해주세요!',
+            icon: 'error',
+            confirmButtonText: '확인'
+          })
+        }
+    
+        else if(this.model.id == ""){
+          Swal.fire({
+            title: 'Error!',
+            text: '아이디를 입력해주세요!',
+            icon: 'error',
+            confirmButtonText: '확인'
+          })
+        }
+
+        else if(this.model.password == ""){
+          Swal.fire({
+            title: 'Error!',
+            text: '비밀번호를 입력해주세요!',
+            icon: 'error',
+            confirmButtonText: '확인'
+          })
+        }
+       
+        else if((this.model.department) == "Department"){
+          Swal.fire({
+            title: 'Error!',
+            text: '부서를 선택해주세요!',
+            icon: 'error',
+            confirmButtonText: '확인'
+          })
+        }
     }
+    
   }
+
 };
 </script>
 

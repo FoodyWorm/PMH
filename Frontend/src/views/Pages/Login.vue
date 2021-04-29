@@ -27,7 +27,7 @@
             <!-- Login Form Title -->
             <b-card-header class="bg-transparent pb-3"  >
               <div class="text-muted text-center mt-2 mb-3">
-                <h1>FoodyWorm</h1>
+                <h1>LOGIN</h1>
               </div>
             </b-card-header>
 
@@ -40,10 +40,12 @@
                   <base-input alternative
                               class="mb-3"
                               name="ID"
-                              :rules="{required: true, min: 10, max:15}"
+                              :rules="{required: true, min: 6, max:15}"
                               prepend-icon="ni ni-key-25"
                               placeholder="ID"
                               v-model="model.id"
+                              v-on:keydown="onlyEngNumId"
+                              v-on:keyup="onlyEngNumId"
                   >
                   </base-input>
 
@@ -55,12 +57,15 @@
                               prepend-icon="ni ni-lock-circle-open"
                               type="password"
                               placeholder="Password"
-                              v-model="model.password">
+                              v-model="model.password"
+                              v-on:keydown="onlyEngNumPassword"
+                              v-on:keyup="onlyEngNumPassword"
+                  >
                   </base-input>
 
                   <!-- Submit Button -->
                   <div class="text-center">
-                    <base-button type="primary" native-type="submit" class="my-4">Sign in</base-button>
+                    <base-button v-on:click="onlyInputOne" type="primary" native-type="submit" class="my-4">Sign in</base-button>
                   </div>
                 </b-form>
               </validation-observer>
@@ -79,6 +84,12 @@
 
 
 <script>
+/*   JavaScript   */
+import axios from 'axios'
+import Swal from 'sweetalert2'
+
+
+/*   Vue Instance   */
 export default {
   data() {
     return {
@@ -91,6 +102,50 @@ export default {
   methods: {
     onSubmit() {
         // Login Submit Fuction Here
+
+    },
+    // 회원 ID 정규식
+    onlyEngNumId(){
+      console.log("ID: " + this.model.id);
+      const reg = /[^a-z0-9]/gi;
+        if(reg.exec(this.model.id) !== null){
+          alert("영문, 숫자만 입력해주세요. (6자 ~ 15자 이내)")
+          return this.model.id = this.model.id.slice(0,-1);
+        }
+    },
+    // 회원 Password 정규식
+    onlyEngNumPassword(){
+      console.log("ID: " + this.model.password);
+      const reg = /[^a-z0-9]/gi;
+        if(reg.exec(this.model.password) !== null){
+          alert("영문, 숫자만 입력해주세요. (6자 ~ 15자 이내)")
+          return this.model.password = this.model.password.slice(0,-1);
+        }
+    },
+    // Submit 정규식
+    onlyInputOne(){
+      // LOG
+      console.log("ID: " + this.model.id);
+      console.log("Password: " + this.model.password);
+
+        // 입력값 비교확인 (Name, ID, Password, Department)
+        if(this.model.id == ""){
+          Swal.fire({
+            title: 'Error!',
+            text: '아이디를 입력해주세요!',
+            icon: 'error',
+            confirmButtonText: '확인'
+          })
+        }
+
+        else if(this.model.password == ""){
+          Swal.fire({
+            title: 'Error!',
+            text: '비밀번호를 입력해주세요!',
+            icon: 'error',
+            confirmButtonText: '확인'
+          })
+        }
     }
   }
 };
