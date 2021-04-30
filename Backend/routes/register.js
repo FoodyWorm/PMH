@@ -1,10 +1,10 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
+/* POST /registerTry */
 router.post('/', function(req, res, next) {
-    var Test = console.log('Register Try');
-    res.send(Test + "Register Try");
+    console.log('Register Try');
+    res.send("Register Try");
 });
 
 module.exports = router;

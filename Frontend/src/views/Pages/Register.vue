@@ -145,11 +145,11 @@ export default {
           console.log("Error: " + error);
         });
 
-      // 새로고침
+      /*/ 새로고침
       setTimeout(function(){
         location.reload();
       },100);
-     
+      */
     },
     // 회원 이름 정규식
     onlyKoreaName(){
@@ -181,10 +181,14 @@ export default {
     // Submit 정규식
     onlyInputOne(){
       // LOG
-      console.log("ID: " + this.model.id);
-      console.log("Name: " + this.model.name);
-      console.log("Password: " + this.model.password);
-      console.log("Department: " + this.model.department);  
+      console.log("----------------------------------");
+      console.log("- Registry Data - \n ");
+      console.log(" ID: " + this.model.id);
+      console.log(" Name: " + this.model.name);
+      console.log(" Password: " + this.model.password);
+      console.log(" Department: " + this.model.department + "\n");
+      console.log("----------------------------------");
+      
 
         // 입력값 비교확인 (Name, ID, Password, Department)
         if(this.model.name == ""){

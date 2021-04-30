@@ -64,6 +64,10 @@ Template: 라우터 변경 (
     1. Connection error: net::ERR_CONNECTION_REFUSED -> 서버를 실행하지 않고, 있을 때 크롬부라우저에서 발생하는 오류 문구이다. 당황하지말자.
     2. /loginTry & /registerTry 라우터 설정
 
+- 2021. 04.30. WorkSpace(0.91) - [ DataBase폴더 생성 및 Log정리 ]
+    1. Rsgister.vue, Login.vue - console.log(); 정리
+    2. DataBase 폴더 생성 및 임시 데이터 값 JSON파일과 SQL문 저장
+
 
 
 

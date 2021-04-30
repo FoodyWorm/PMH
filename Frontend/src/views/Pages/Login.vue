@@ -103,6 +103,12 @@ export default {
   methods: {
     // 서버에 로그인 요청
     onSubmit() {
+      console.log("----------------------------------");
+      console.log("- Login Data - \n ");
+      console.log(" ID: " + this.model.id);
+      console.log(" Password: " + this.model.password + "\n");
+      console.log("----------------------------------");
+      
       console.log("Login Try");
       axios.post('/loginTry')
         .then((response) => {
@@ -112,10 +118,11 @@ export default {
           console.log("Error: " + error);
         });
 
-        // 새로고침
-        setTimeout(function(){
-        location.reload();
-        },100);
+      /*/ 새로고침
+      setTimeout(function(){
+      location.reload();
+      },100);
+      */
         
     },
     // 회원 ID 정규식
