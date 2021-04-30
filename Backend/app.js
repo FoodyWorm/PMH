@@ -6,7 +6,6 @@ var logger = require('morgan');
 
 // 라우터 주소를 가져와서 저장 //
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 
 // express 모듈을 app에 적용 //
 var app = express();

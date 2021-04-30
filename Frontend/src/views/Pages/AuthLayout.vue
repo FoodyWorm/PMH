@@ -129,6 +129,7 @@
 
 
 <script>
+/* eslint-disable */
   import { BaseNav } from '@/components';
   import { ZoomCenterTransition } from 'vue2-transitions';
 

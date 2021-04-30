@@ -45,6 +45,7 @@
 </template>
 
 <script>
+/* eslint-disable */
   import EditProfileForm from './UserProfile/EditProfileForm.vue';
   import UserCard from './UserProfile/UserCard.vue';
 

@@ -32,6 +32,30 @@ const routes = [
       },
       { path: '*', component: NotFound }
     ]
+  },
+  // 메인 페이지
+  {
+    path: '/dashboard',
+    name: 'dashboard_layout',
+    component: DashboardLayout,
+    // 메인 요청 및 컴포넌트 (Projects, Add, User Profile)
+    children: [
+      {
+        path: '/dashboard',
+        name: 'dashboard',
+        component: () => import(/* webpackChunkName: "demo" */ '../views/Dashboard.vue')
+      },
+      {
+        path: '/profile',
+        name: 'profile',
+        component: () => import(/* webpackChunkName: "demo" */ '../views/Pages/UserProfile.vue')
+      },
+      {
+        path: '/tables',
+        name: 'tables',
+        component: () => import(/* webpackChunkName: "demo" */ '../views/RegularTables.vue')
+      }
+    ]
   }
 ];
 
@@ -39,28 +63,4 @@ export default routes;
 
 
 
-/*
-// 시작페이지 요청 및 컴포넌트
-    path: '/',
-    redirect: 'dashboard',
-    component: DashboardLayout,
 
-    // 메인 요청 및 컴포넌트 (Projects, Add, User Profile)
-    children: [
-      {
-        path: '/dashboard',
-        name: 'dashboard',
-        component: () => import('../views/Dashboard.vue')
-      },
-      {
-        path: '/profile',
-        name: 'profile',
-        component: () => import('../views/Pages/UserProfile.vue')
-      },
-      {
-        path: '/tables',
-        name: 'tables',
-        component: () => import('../views/RegularTables.vue')
-      }
-    ]
-  */

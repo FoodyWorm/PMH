@@ -36,7 +36,7 @@ Template: 라우터 변경 (
 )
 
 
-- 2021.04.29. WorkSpace(0.5) - [ Login.vue & Register.vue 정규식 적용 및 SweetAlret2사용]
+- 2021.04.29. WorkSpace(0.5) - [ Login.vue & Register.vue 정규식 적용 및 SweetAlret2사용 ]
     1. 한글정규식
     2. 영어숫자정규식
     3. 공백정규식
@@ -48,13 +48,17 @@ Template: 라우터 변경 (
     1. location.reload(); 적용
     2. axios를 사용한, Restful API 요청 생성
 
+
 - 2021.04.29. WorkSpace(0.7) - [ DataBase & Table ]
     1. DataBase 생성 및 테이블 정의
 
 
-
-
-
+- 2021. 04.30. WorkSpace(0.8) - [ Webpack-build ]
+    1. 각 오류 구문에 /* eslint-disable */ 기입. - ( new TestObject(); 와 같은 .. 에라이 그냥 이거 쓰면 웹펙 build 오류가 사라진다. <script></script>의 최상단에 기입하면 된다. )
+    2. intelij.Webpack.js 라는 쓸데없는 파일을 제거 - ( Webpack에는 전혀 영향을 주지 않는다. )
+    3. Vue.config.js에서 Webpack의 경로를 설정이 가능한 것 같다.
+    4. 기존의 웹팩 결과물의 경로가 "/Frontent/dist/index.html"이였지만, -> "/Backend/public/index.html"로 바꿔주었다. ( 서버에서 요청을 주고받을 수 있게 되었다. )
+    5. Server Config 설정 (IP, Port, URL. User_Router)
 
 
 
