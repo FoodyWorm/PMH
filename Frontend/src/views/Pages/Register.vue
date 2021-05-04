@@ -137,13 +137,6 @@ export default {
     // 서버에 회원가입 요청
     onSubmit() {
       console.log("Register Try");
-      axios.post('/registerTry')
-        .then((response) => {
-          console.log("Response: " + response);
-        })
-        .catch((error) => {
-          console.log("Error: " + error);
-        });
       // API: /registerTry
       axios({
           method: "POST",
@@ -156,9 +149,23 @@ export default {
           }
         })
         .then((response) => {
-          console.log("Response: " + response);
-          console.log(response.data);
-          console.log(response.headers);
+          console.log("Response Data: " + response.data);
+          //
+          if(response.data == true) {
+            axios.get('/login');
+            
+          }
+          
+          // 중복값 경고알림
+          if(response.data == false) {
+            Swal.fire({
+              title: 'Error!',
+              text: '중복되는 값이 존재합니다. 값을 변경해주세요!',
+              icon: 'error',
+              confirmButtonText: '확인'
+            });
+          }
+          
         })
         .catch((error) => {
           console.log("Error: " + error);

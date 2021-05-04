@@ -17,7 +17,7 @@ CREATE TABLE users(
 CREATE TABLE projects(
 	project_index INT AUTO_INCREMENT Primary KEY NOT NULL,
 	project_title VARCHAR(15) NOT NULL,
-	project_content VARCHAR(100) NOT NULL,
+	project_content VARCHAR(100) NOT NULL NOT UNDEFINED,
 	project_user VARCHAR(15) NOT NULL,
 	project_department VARCHAR(10) NOT NULL,
 	project_date DATE NOT NULL,
@@ -37,7 +37,7 @@ DROP TABLE users;
 DROP TABLE Projects;
 
 /* Root User */
-INSERT INTO users (user_index, user_id, user_pw, user_name, user_department, user_authority) VALUES (0, 'root', '1234', '김장은', '스마트팜', '3'); 
+INSERT INTO users (user_index, user_id, user_pw, user_name, user_department, user_authority) VALUES (0, 'rooter', '465132zz', '김장은', '스마트팜', '3'); 
 
 
 
