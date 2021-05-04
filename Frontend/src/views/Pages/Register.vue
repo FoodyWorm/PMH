@@ -144,6 +144,25 @@ export default {
         .catch((error) => {
           console.log("Error: " + error);
         });
+      // API: /registerTry
+      axios({
+          method: "POST",
+          url: '/registerTry',
+          data: {
+            "name": this.model.name,
+            "id": this.model.id,
+            "pw": this.model.password,
+            "department": this.model.department
+          }
+        })
+        .then((response) => {
+          console.log("Response: " + response);
+          console.log(response.data);
+          console.log(response.headers);
+        })
+        .catch((error) => {
+          console.log("Error: " + error);
+        });
 
       /*/ 새로고침
       setTimeout(function(){

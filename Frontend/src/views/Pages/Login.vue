@@ -108,11 +108,20 @@ export default {
       console.log(" ID: " + this.model.id);
       console.log(" Password: " + this.model.password + "\n");
       console.log("----------------------------------");
-      
-      console.log("Login Try");
-      axios.post('/loginTry')
+
+      // API: /loginTry
+      axios({
+          method: "POST",
+          url: '/loginTry',
+          data: {
+            "id": this.model.id,
+            "pw": this.model.password
+          }
+        })
         .then((response) => {
           console.log("Response: " + response);
+          console.log(response.data);
+          console.log(response.headers);
         })
         .catch((error) => {
           console.log("Error: " + error);
@@ -158,7 +167,6 @@ export default {
             confirmButtonText: '확인'
           })
         }
-
         else if(this.model.password == ""){
           Swal.fire({
             title: 'Error!',
@@ -166,8 +174,8 @@ export default {
             icon: 'error',
             confirmButtonText: '확인'
           })
-          
         }
+        
     }
   }
 };

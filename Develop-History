@@ -60,15 +60,23 @@ Template: 라우터 변경 (
     4. 기존의 웹팩 결과물의 경로가 "/Frontent/dist/index.html"이였지만, -> "/Backend/public/index.html"로 바꿔주었다. ( 서버에서 요청을 주고받을 수 있게 되었다. )
     5. Server Config 설정 (IP, Port, URL. User_Router)
 
+
 - 2021. 04.30. WorkSpace(0.9) - [ /loginTry & /registerTry 라우터 설정 ]
     1. Connection error: net::ERR_CONNECTION_REFUSED -> 서버를 실행하지 않고, 있을 때 크롬부라우저에서 발생하는 오류 문구이다. 당황하지말자.
     2. /loginTry & /registerTry 라우터 설정
+
 
 - 2021. 04.30. WorkSpace(0.91) - [ DataBase폴더 생성 및 Log정리 ]
     1. Rsgister.vue, Login.vue - console.log(); 정리
     2. DataBase 폴더 생성 및 임시 데이터 값 JSON파일과 SQL문 저장
 
 
+- 2021. 05.04. WorkSpace(1.0) - [ SetData & GetData ]
+    1. axios로 데이터를 보내고, 받을 수 있음.
+    2. axios 데이터를 보낼 때, 데이터 객체의 키값은 자동으로 html의 name이 됨.
+    3. express에서 요청자가 보낸 데이터 값을 가져올 때, body-parser를 사용.
+    4. express에서 요청자에게 결과 값을 res.send로 응답.
+    5. 응답된 결과 값은 axios.than(response)로 전달 받는다.
 
 
 -----------------------------------------------------------------------------------------------
