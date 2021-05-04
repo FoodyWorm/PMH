@@ -175,7 +175,12 @@ export default {
       console.log("Name: " + this.model.name);
       const reg = /^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]*$/;
         if(reg.exec(this.model.name) == null){
-          alert("한글만 입력해주세요. (3자 ~ 5자 이내)");
+          Swal.fire({
+            title: 'Error!',
+            text: '한글만 입력해주세요. (3자 ~ 5자 이내)',
+            icon: 'error',
+            confirmButtonText: '확인'
+          });
           return this.model.name = this.model.name.slice(0,-1);
         }
     },
@@ -184,7 +189,12 @@ export default {
       console.log("ID: " + this.model.id);
       const reg = /[^a-z0-9]/gi;
         if(reg.exec(this.model.id) !== null){
-          alert("영문, 숫자만 입력해주세요. (6자 ~ 15자 이내)");
+          Swal.fire({
+            title: 'Error!',
+            text: '영문, 숫자만 입력해주세요. (6자 ~ 15자 이내)',
+            icon: 'error',
+            confirmButtonText: '확인'
+          });
           return this.model.id = this.model.id.slice(0,-1);
         }
     },
@@ -193,7 +203,12 @@ export default {
       console.log("Password: " + this.model.password);
       const reg = /[^a-z0-9]/gi;
         if(reg.exec(this.model.password) !== null){
-          alert("영문, 숫자만 입력해주세요. (6자 ~ 15자 이내)");
+          Swal.fire({
+            title: 'Error!',
+            text: '영문, 숫자만 입력해주세요. (6자 ~ 15자 이내)',
+            icon: 'error',
+            confirmButtonText: '확인'
+          });
           return this.model.password = this.model.password.slice(0,-1);
         }
     },

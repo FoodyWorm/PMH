@@ -6,7 +6,7 @@ USE pmh;
 
 /* Create Table */
 CREATE TABLE users(
-	user_index int AUTO_INCREMENT Primary KEY,
+	user_index int AUTO_INCREMENT Primary KEY NOT NULL,
 	user_id VARCHAR(15) NOT NULL,
 	user_pw VARCHAR(20) NOT NULL,
 	user_name VARCHAR(15) NOT NULL,

@@ -139,7 +139,12 @@ export default {
       console.log("ID: " + this.model.id);
       const reg = /[^a-z0-9]/gi;
         if(reg.exec(this.model.id) !== null){
-          alert("영문, 숫자만 입력해주세요. (6자 ~ 15자 이내)")
+          Swal.fire({
+            title: 'Error!',
+            text: '영문, 숫자만 입력해주세요. (6자 ~ 15자 이내)',
+            icon: 'error',
+            confirmButtonText: '확인'
+          });
           return this.model.id = this.model.id.slice(0,-1);
         }
     },
@@ -148,7 +153,12 @@ export default {
       console.log("ID: " + this.model.password);
       const reg = /[^a-z0-9]/gi;
         if(reg.exec(this.model.password) !== null){
-          alert("영문, 숫자만 입력해주세요. (6자 ~ 15자 이내)")
+          Swal.fire({
+            title: 'Error!',
+            text: '영문, 숫자만 입력해주세요. (6자 ~ 20자 이내)',
+            icon: 'error',
+            confirmButtonText: '확인'
+          });
           return this.model.password = this.model.password.slice(0,-1);
         }
     },
@@ -165,7 +175,7 @@ export default {
             text: '아이디를 입력해주세요!',
             icon: 'error',
             confirmButtonText: '확인'
-          })
+          });
         }
         else if(this.model.password == ""){
           Swal.fire({
@@ -173,7 +183,7 @@ export default {
             text: '비밀번호를 입력해주세요!',
             icon: 'error',
             confirmButtonText: '확인'
-          })
+          });
         }
         
     }
