@@ -97,6 +97,11 @@ Template: 라우터 변경 (
     1. Clean Code
     2. 구조 이해하기
     3. Logo 링크 일부 변경
+
+- 2021. 05.06. Cookie - [ Cookie값을 활용한 URL접속 차단 ]
+    1. 로그인에 성공하면, res.cookie('status', true, { max: 10000 }) 라는 쿠키를 얻게 됨
+    2. 쿠키 값의 일치여부에 따라 컴포넌트 이동이 가능하도록 함
+
     
 
 

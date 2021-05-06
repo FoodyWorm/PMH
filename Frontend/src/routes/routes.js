@@ -37,6 +37,18 @@ const routes = [
     path: '/',
     name: 'dashboard_layout',
     component: DashboardLayout,
+    beforeEnter: function(to, from, next) {
+      // 인증 값 검증 로직
+      console.log("현재 쿠키 값: " + document.cookie);
+      if(document.cookie == "status=true") {
+        next();
+      }
+      else {
+        console.log('요청한 쿠키 값이 옳바르지 않습니다.');
+        next('/login');
+      }
+
+    },
     // 메인 요청 및 컴포넌트 (Projects, Add, User Profile)
     children: [
       {

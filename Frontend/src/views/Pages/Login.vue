@@ -89,7 +89,6 @@
 import axios from 'axios'
 import Swal from 'sweetalert2'
 
-
 /*   Vue Instance   */
 export default {
   data() {

@@ -46,6 +46,7 @@ router.post('/', function(req, res, next) {
                 // 데이터가 일치할 경우
                 if(((req.body.id == getData[i].user_id) && (req.body.pw == getData[i].user_pw))) {
                     console.log("데이터가 일치합니다. 로그인 시도 중...");
+                    res.cookie('status', true, { maxAge:10000 });
                     res.send(true);
                     break;
                 }
