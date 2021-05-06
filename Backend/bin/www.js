@@ -6,7 +6,7 @@ var http = require('http');
 /* 포트, 아이피, URL주소 생성 및 적용 */
 var port = normalizePort(process.env.PORT || '3000');
 var ip = "192.168.0.12";
-var url = "http://" + ip + ":" + port + "/";
+var url = "http://" + ip + ":" + port + "/#/";
 app.set('port', port);
 app.set()
 

@@ -27,22 +27,6 @@
                 icon: 'ni ni-single-02 text-yellow'
                 }">
         </sidebar-item>
-
-        <sidebar-item
-                :link="{
-                  name: 'Login',
-                  path: '/login',
-                  icon: 'ni ni-key-25 text-info'
-                }">
-        </sidebar-item>
-
-        <sidebar-item
-                :link="{
-                  name: 'Register',
-                  path: '/register',
-                  icon: 'ni ni-circle-08 text-pink'
-                }">
-        </sidebar-item>
       </template>
 
       

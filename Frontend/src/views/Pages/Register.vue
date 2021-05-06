@@ -147,12 +147,12 @@ export default {
             "pw": this.model.password,
             "department": this.model.department
           }
-        })
-        .then((response) => {
+      })
+      .then((response) => {
           console.log("Response Data: " + response.data);
-          //
+          // 회원가입 성공 후 로그인 페이지 이동
           if(response.data == true) {
-            axios.get('/login');
+            this.$router.replace('login');
             
           }
           
@@ -160,16 +160,17 @@ export default {
           if(response.data == false) {
             Swal.fire({
               title: 'Error!',
-              text: '중복되는 값이 존재합니다. 값을 변경해주세요!',
+              text: '중복되는 값이 존재합니다. \n이름, 아이디, 비밀번호 중에 값을 변경해주세요!',
               icon: 'error',
               confirmButtonText: '확인'
             });
           }
           
-        })
-        .catch((error) => {
+      })
+      .catch((error) => {
+          // 회원가입 실패 시 에러출력
           console.log("Error: " + error);
-        });
+      });
 
       /*/ 새로고침
       setTimeout(function(){

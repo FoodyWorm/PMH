@@ -117,15 +117,29 @@ export default {
             "id": this.model.id,
             "pw": this.model.password
           }
-        })
-        .then((response) => {
+      })
+      .then((response) => {
           console.log("Response: " + response);
-          console.log(response.data);
-          console.log(response.headers);
-        })
-        .catch((error) => {
+          console.log("응답받은 데이터 값: " + response.data);
+          // 로그인 성공 후 메인 페이지 이동
+          if(response.data == true) {
+            this.$router.replace('dashboard');
+          }
+
+          // 로그인 실패 시  경고알림
+          if(response.data == false) {
+            Swal.fire({
+              title: 'Error!',
+              text: '로그인 정보가 일치하지 않습니다.',
+              icon: 'error',
+              confirmButtonText: '확인'
+            });
+          }
+          
+      })
+      .catch((error) => {
           console.log("Error: " + error);
-        });
+      });
 
       /*/ 새로고침
       setTimeout(function(){

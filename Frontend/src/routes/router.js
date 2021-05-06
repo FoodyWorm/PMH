@@ -12,7 +12,6 @@ Vue.use(VueRouter);
 
 // Vue 라우터에 Vue 라우터 모듈을 적용
 const router = new VueRouter({
-  mode: 'history',
   routes, // short for routes: routes
   linkActiveClass: 'active',
   scrollBehavior: (to, from ,savedPosition) => {

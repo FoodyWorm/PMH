@@ -7,7 +7,9 @@
             <navbar-toggle-button @click.native="showSidebar">
                 
             </navbar-toggle-button>
-            <router-link class="navbar-brand" to="/">
+
+            <!-- 메인 페이지 LOGO -->
+            <router-link class="navbar-brand" to="/dashboard">
                 <img :src="logo" class="navbar-brand-img" alt="...">
             </router-link>
 

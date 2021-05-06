@@ -29,13 +29,12 @@ const routes = [
         path: '/register',
         name: 'register',
         component: () => import(/* webpackChunkName: "demo" */ '../views/Pages/Register.vue')
-      },
-      { path: '*', component: NotFound }
+      }
     ]
   },
   // 메인 페이지
   {
-    path: '/dashboard',
+    path: '/',
     name: 'dashboard_layout',
     component: DashboardLayout,
     // 메인 요청 및 컴포넌트 (Projects, Add, User Profile)
@@ -54,6 +53,10 @@ const routes = [
         path: '/tables',
         name: 'tables',
         component: () => import(/* webpackChunkName: "demo" */ '../views/RegularTables.vue')
+      },
+      { 
+        path: '*',
+        component: NotFound 
       }
     ]
   }
