@@ -1,40 +1,54 @@
 <template>
+  <!-- 메인 페이지의 프로필 메뉴 -->
   <base-nav
     container-classes="container-fluid"
     class="navbar-top navbar-expand"
     :class="{'navbar-dark': type === 'default'}"
   >
-    <!-- Projects Content Name -->
+    <!-- 프로젝트 이름 -->
     <a href="#" aria-current="page" class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block active router-link-active"> {{$route.name}} </a>
 
-    <!-- Navbar links -->
+    <!-- 프로필 메뉴 링크 -->
     <b-navbar-nav class="align-items-center ml-md-auto">
-      <!-- This item dont have <b-nav-item> because item have data-action/data-target on tag <a>, wich we cant add -->
       <li class="nav-item d-sm-none">
+        <!-- 메뉴바 링크 -->
         <a class="nav-link" href="#" data-action="search-show" data-target="#navbar-search-main">
+          <!-- 검색 아이콘 -->
           <i class="ni ni-zoom-split-in"></i>
         </a>
+
       </li>
     </b-navbar-nav>
+
+    <!-- 메뉴바 섹션 -->
     <b-navbar-nav class="align-items-center ml-auto ml-md-0">
+        <!-- 검색창 Form -->
         <b-form class="navbar-search form-inline mr-sm-3"
             :class="{'navbar-search-dark': type === 'default', 'navbar-search-light': type === 'light'}"
-            id="navbar-search-main">
-        <b-form-group class="mb-0">
-          <b-input-group class="input-group-alternative input-group-merge">
-            <b-form-input placeholder="Search" type="text"> </b-form-input>
+            id="navbar-search-main"
+        >
+          <!-- 검색 그룹 -->
+          <b-form-group class="mb-0">
+            <b-input-group class="input-group-alternative input-group-merge">
+              <!-- 검색창 -->
+              <b-form-input placeholder="Search" type="text"> </b-form-input>
 
-            <div class="input-group-append">
-              <span class="input-group-text"><i class="fas fa-search"></i></span>
-            </div>
-          </b-input-group>
-        </b-form-group>
-      </b-form>
+              <!-- 검색 아이콘 -->
+              <div class="input-group-append">
+                <span class="input-group-text"><i class="fas fa-search"></i></span>
+              </div>
+            </b-input-group>
+          </b-form-group>
+
+        </b-form>
+
+      <!-- 프로필 메뉴바 -->
       <base-dropdown menu-on-right
                      class="nav-item"
                      tag="li"
                      title-tag="a"
-                     title-classes="nav-link pr-0">
+                     title-classes="nav-link pr-0"
+      >
         <a href="#" class="nav-link pr-0" @click.prevent slot="title-container">
           <b-media no-body class="align-items-center">
                   <span class="avatar avatar-sm rounded-circle">
@@ -82,6 +96,7 @@
       </base-dropdown>
     </b-navbar-nav>
   </base-nav>
+
 </template>
 
 

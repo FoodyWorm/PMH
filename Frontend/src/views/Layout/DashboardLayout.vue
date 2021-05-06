@@ -1,8 +1,14 @@
 <template>
+  <!-- 메인페이지 레이아웃 -->
   <div class="wrapper">
+    
+    <!-- 공지사항이나 알림등을 이 태그 안에 기입하면 된다. ex) 프로젝트 마감이 ~ 만큼 남았어요! -->
     <notifications></notifications>
+
+    <!-- 메인 페이지의 왼쪽 사이드바의 버튼 -->
     <side-bar>
       <template slot="links">
+        <!-- Projects -->
         <sidebar-item
           :link="{
             name: 'Projects',
@@ -10,6 +16,8 @@
             icon: 'ni ni-calendar-grid-58 text-green',
           }"
         >
+
+        <!-- Add -->
         </sidebar-item>
 
          <sidebar-item
@@ -20,6 +28,7 @@
                 }">
         </sidebar-item>
       
+        <!-- User Profile -->
         <sidebar-item
               :link="{
                 name: 'User Profile',
@@ -28,10 +37,9 @@
                 }">
         </sidebar-item>
       </template>
-
-      
     </side-bar>
     
+    <!-- 메인 페이지 (Projects)의 내부 페이지 -->
     <div class="main-content">
       <dashboard-navbar :type="$route.meta.navbarType"></dashboard-navbar>
 
@@ -43,11 +51,12 @@
       </div>
 
       <content-footer v-if="!$route.meta.hideFooter"></content-footer>
-
     </div>
   </div>
 
 </template>
+
+
 <script>
   /* eslint-disable no-new */
   import PerfectScrollbar from 'perfect-scrollbar';
@@ -93,5 +102,6 @@
     }
   };
 </script>
+
 <style lang="scss">
 </style>
