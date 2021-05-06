@@ -37,7 +37,8 @@ const routes = [
     path: '/',
     name: 'dashboard_layout',
     component: DashboardLayout,
-    beforeEnter: function(to, from, next) {
+    // 페이지 테스트를 위한 임시 주석
+    /*beforeEnter: function(to, from, next) {
       // 인증 값 검증 로직
       console.log("현재 쿠키 값: " + document.cookie);
       if(document.cookie == "status=true") {
@@ -48,12 +49,12 @@ const routes = [
         next('/login');
       }
 
-    },
+    },*/
     // 메인 요청 및 컴포넌트 (Projects, Add, User Profile)
     children: [
       {
-        path: '/dashboard',
-        name: 'dashboard',
+        path: '/projects',
+        name: 'projects',
         component: () => import(/* webpackChunkName: "demo" */ '../views/Dashboard.vue')
       },
       {
@@ -62,8 +63,8 @@ const routes = [
         component: () => import(/* webpackChunkName: "demo" */ '../views/Pages/UserProfile.vue')
       },
       {
-        path: '/tables',
-        name: 'tables',
+        path: '/add',
+        name: 'Add',
         component: () => import(/* webpackChunkName: "demo" */ '../views/RegularTables.vue')
       },
       { 

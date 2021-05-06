@@ -10,6 +10,8 @@ import routes from './routes';
 // Vue에 Vue 라우터 모듈 적용
 Vue.use(VueRouter);
 
+
+
 // Vue 라우터에 Vue 라우터 모듈을 적용
 const router = new VueRouter({
   routes, // short for routes: routes

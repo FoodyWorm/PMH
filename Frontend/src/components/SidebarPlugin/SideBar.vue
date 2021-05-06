@@ -9,7 +9,7 @@
             </navbar-toggle-button>
 
             <!-- 모바일 메인 페이지 LOGO -->
-            <router-link class="navbar-brand" to="/dashboard">
+            <router-link class="navbar-brand" to="/projects">
                 <img :src="logo" class="navbar-brand-img" alt="...">
             </router-link>
 

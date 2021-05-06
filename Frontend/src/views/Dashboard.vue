@@ -1,11 +1,22 @@
 <template>
   <div>
+    
     <base-header class="pb-6 pb-8 pt-5 pt-md-8 bg-gradient-success">
-      <!-- Projects Content - main -->
       <b-row>
-        
+      <!-- Projects Content - main Start -->
+      <Calendar>
+        Hello?
+      </Calendar>
+
+
+
+
+
+      <!-- Projects Content - main End -->   
       </b-row>
     </base-header>
+    
+
 
     <!-- Projects Content - Middle -->
     <b-container fluid class="mt--7">
@@ -32,27 +43,11 @@
   </div>
 </template>
 <script>
-  // Charts
-  import * as chartConfigs from '@/components/Charts/config';
-  import LineChart from '@/components/Charts/LineChart';
-  import BarChart from '@/components/Charts/BarChart';
-
-  // Components
-  import BaseProgress from '@/components/BaseProgress';
-  import StatsCard from '@/components/Cards/StatsCard';
-
-  // Tables
-  import SocialTrafficTable from './Dashboard/SocialTrafficTable';
-  import PageVisitsTable from './Dashboard/PageVisitsTable';
+import Calendar from './Calendar.vue';
 
   export default {
     components: {
-      LineChart,
-      BarChart,
-      BaseProgress,
-      StatsCard,
-      PageVisitsTable,
-      SocialTrafficTable
+        Calendar
     },
     data() {
       return {
@@ -102,10 +97,28 @@
     },
     mounted() {
       this.initBigChart(0);
+      let me = this;
+      setTimeout(function () {
+        me.events = [ // you can make ajax call here
+          {
+            id:1,
+            title:'Event 1',
+            color: 'panel-danger',
+            date: new Date()
+          },     
+        ];
+      }, 1000);
     }
   };
 </script>
-<style>
+
+
+
+
+
+<style lang="scss" scoped>
+
+// Basic //
 .el-table .cell{
   padding-left: 0px;
   padding-right: 0px;

@@ -12,7 +12,7 @@
         <sidebar-item
           :link="{
             name: 'Projects',
-            path: '/dashboard',
+            path: '/projects',
             icon: 'ni ni-calendar-grid-58 text-green',
           }"
         >
@@ -23,7 +23,7 @@
          <sidebar-item
                 :link="{
                   name: 'Add',
-                  path: '/tables',
+                  path: '/add',
                   icon: 'ni ni-bullet-list-67 text-red'
                 }">
         </sidebar-item>

@@ -77,6 +77,7 @@
         </b-card-footer>
     </b-card>
 </template>
+
 <script>
   import projects from './../projects'
   import { Table, TableColumn} from 'element-ui'

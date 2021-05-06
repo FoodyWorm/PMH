@@ -122,7 +122,7 @@ export default {
           console.log("응답받은 데이터 값: " + response.data);
           // 로그인 성공 후 메인 페이지 이동
           if(response.data == true) {
-            this.$router.replace('dashboard');
+            this.$router.replace('projects');
           }
 
           // 로그인 실패 시  경고알림
