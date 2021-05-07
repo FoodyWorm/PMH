@@ -1,7 +1,8 @@
 <template>
   <div>
      <!-- Projects Content - main Start -->
-    <base-header class="pb-6 pb-8 pt-5 pt-md-8 bg-gradient-success">
+    <base-header class="pb-5 pb-1 pt-5 pt-md-8 mx-auto bg-info bg-gradient-success">
+      
       <MainCalendar></MainCalendar>
       
     </base-header>

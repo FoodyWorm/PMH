@@ -120,9 +120,38 @@ Template: 라우터 변경 (
     )
 
 
-- 2021. 05.07. 프로젝트 켈린더제작 (0%) - [ 프로젝트 켈린더 제작 시작 ]
+- 2021. 05.07. 프로젝트 켈린더제작 (0%) - [ 프로젝트 켈린더 제작 시작 & 설계 ]
     1. 구조정리
+    2. 적합한 켈린더 혹은 스케쥴러 찾기 그리고 적용시도
+    3. 켈린더 후보들이였던 것들..
+        (1) bootstrap-vue-argon-dashboard-master - fullcalendar 
+            -> Pro로 업그레이드 해야함... 
 
+        (2) jqwidgets-ver12.0.4
+            -> 다양한 컴포넌트를 무료로 제공하면서, 굉장히 퀄리티가 뛰어남. 하지만, jquery? jqwidgets를 관려해서 알아야 해서 적용하기 힘듦.
+
+        (3) MDB-Vue-master
+            -> 무료라면서, 하나도 못쓰게해 놓았음..ㅡㅡ;
+
+        (4) daykeep-calendar-quasar-master
+            -> 데모 조차도 볼 수가 없었음.
+
+        (5) EazyServer-Vue-Bootstrap-Calendar-5e26876
+            -> 적용이 안되서 손절함.
+
+        (6) Fullcalendar-master
+            -> jQuery를 사용해야 함으로 손절함.
+        
+        (7) v-calendar-master
+            -> 적용하기에는 기능이 너무 미흡함. 그리고 실행이 안됨.
+
+        (8) 그 외 기타 등등...
+
+        (9) 직접 만들기 or 더 찾아보기 or 권팀장님께 물어보기 or 풀켈린더 현질하기 or 풀켈린더 마스터해서 vue로 전부 옮기기
+            -> 우선은, 직접 만들 각오로... 최종적으로 만들어낼 프로젝트표의 UI&UX를 디자인함.( 경로: /Frontend/public/img/plan/MainCalendar_Plan )
+        
+    4. jqwidgets, bootstrap-vue, vue 관련 조사
+    5. calendar 적용 위치 파악 및 임시방편으로 <b-calendar> 적용    
 
 
 
