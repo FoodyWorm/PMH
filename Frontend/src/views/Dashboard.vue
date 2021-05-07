@@ -1,21 +1,11 @@
 <template>
   <div>
-    
+     <!-- Projects Content - main Start -->
     <base-header class="pb-6 pb-8 pt-5 pt-md-8 bg-gradient-success">
-      <b-row>
-      <!-- Projects Content - main Start -->
-      <Calendar>
-        Hello?
-      </Calendar>
-
-
-
-
-
-      <!-- Projects Content - main End -->   
-      </b-row>
+      <MainCalendar></MainCalendar>
+      
     </base-header>
-    
+    <!-- Projects Content - main End -->   
 
 
     <!-- Projects Content - Middle -->
@@ -43,11 +33,11 @@
   </div>
 </template>
 <script>
-import Calendar from './Calendar.vue';
+import MainCalendar from './Projects/MainCalendar.vue'
 
   export default {
     components: {
-        Calendar
+        MainCalendar
     },
     data() {
       return {

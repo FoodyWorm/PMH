@@ -81,7 +81,9 @@
 <script>
   import projects from './../projects'
   import { Table, TableColumn} from 'element-ui'
+  
   export default {
+    // 사용시 태그 이름: <light-table />
     name: 'light-table',
     components: {
       [Table.name]: Table,
@@ -94,4 +96,5 @@
       };
     }
   }
+  
 </script>
