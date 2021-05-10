@@ -20,20 +20,20 @@
       </li>
     </b-navbar-nav>
 
-    <!-- 메뉴바 섹션 -->
+    <!-- 메뉴바 섹션 
     <b-navbar-nav class="align-items-center ml-auto ml-md-0">
-        <!-- 검색창 Form -->
+        <! 검색창 Form 
         <b-form class="navbar-search form-inline mr-sm-3"
             :class="{'navbar-search-dark': type === 'default', 'navbar-search-light': type === 'light'}"
             id="navbar-search-main"
         >
-          <!-- 검색 그룹 -->
+          <! 검색 그룹 
           <b-form-group class="mb-0">
             <b-input-group class="input-group-alternative input-group-merge">
-              <!-- 검색창 -->
+              <! 검색창
               <b-form-input placeholder="Search" type="text"> </b-form-input>
 
-              <!-- 검색 아이콘 -->
+              <! 검색 아이콘 
               <div class="input-group-append">
                 <span class="input-group-text"><i class="fas fa-search"></i></span>
               </div>
@@ -41,7 +41,7 @@
           </b-form-group>
 
         </b-form>
-
+      -->
       <!-- 프로필 메뉴바 -->
       <base-dropdown menu-on-right
                      class="nav-item"
@@ -94,7 +94,7 @@
 
         </template>
       </base-dropdown>
-    </b-navbar-nav>
+    
   </base-nav>
 
 </template>

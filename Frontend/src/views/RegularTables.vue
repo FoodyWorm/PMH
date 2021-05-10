@@ -5,7 +5,7 @@
     </base-header>
     
     <!-- Projects Table -->
-    <b-container fluid class="mt--7">
+    <b-container fluid class="mt--9">
       <b-row>
         <b-col>
           <light-table/>
