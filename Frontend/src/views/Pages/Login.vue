@@ -96,7 +96,7 @@ export default {
       model: {
         id: '',
         password: ''
-        }
+      }
     };
   },
   methods: {

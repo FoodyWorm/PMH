@@ -99,7 +99,7 @@
 
             <!-- Submit Button -->   
             <div class="text-center">
-            <b-button v-on:click="onlyInputOne" type="submit" variant="primary" class="mt-4">Create account</b-button>
+              <b-button v-on:click="onlyInputOne" type="submit" variant="primary" class="mt-4">Create account</b-button>
             </div>
 
           </b-form>

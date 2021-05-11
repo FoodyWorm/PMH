@@ -1,34 +1,61 @@
 <template>
     <b-card no-body>
-        <b-card-header class="border-0">
-            <h3 class="mb-0">Light table</h3>
+        <!-- Header 제목 & 설정 -->
+        <b-card-header class="border-0" id="Header">
+            <!-- 제목 -->
+            <span id="title">Projects</span>
+
+            <!-- 설정 -->
+            <b-dropdown right id="setting">
+              <template v-slot:button-content>
+                <i class="ni ni-settings-gear-65 mb-0 mt-0"></i>
+                <span class="nav-link-inner--text d-lg-none">Settings</span>
+                
+              </template>
+                <b-dropdown-item id="show-modal" @click="showModal = true">ADD</b-dropdown-item>
+                <b-dropdown-item href="#">View</b-dropdown-item>
+                <b-dropdown-item href="#">Schedules</b-dropdown-item>
+            </b-dropdown>
         </b-card-header>
 
+
+        <!-- 테이블 속성 및 크기 -->
         <el-table class="table-responsive table"
                   header-row-class-name="thead-light"
                   :data="projects">
-            <el-table-column label="Project"
+
+            <!-- 테이블 컬럼 및 제목 (Status) -->
+            <el-table-column label="Check"
+                             min-width="110px"
+                             prop="Check">
+                <!-- 내용 -->
+                <template>
+                    <div class="d-flex align-items-center ml-2">
+                       <base-checkbox></base-checkbox>
+                    </div>
+                </template>
+            </el-table-column>
+
+            <!-- 테이블 컬럼 및 제목 (Project Title) -->
+            <el-table-column label="Project Title"
                              min-width="310px"
                              prop="name">
+                <!-- 내용 -->
                 <template v-slot="{row}">
                     <b-media no-body class="align-items-center">
-                        <a href="#" class="avatar rounded-circle mr-3">
-                            <img alt="Image placeholder" :src="row.img">
-                        </a>
                         <b-media-body>
                             <span class="font-weight-600 name mb-0 text-sm">{{row.title}}</span>
                         </b-media-body>
                     </b-media>
                 </template>
             </el-table-column>
-            <el-table-column label="Budget"
-                             prop="budget"
-                             min-width="140px">
-            </el-table-column>
 
+
+            <!-- 테이블 컬럼 및 제목 (Status) -->
             <el-table-column label="Status"
-                             min-width="170px"
+                             min-width="150px"
                              prop="status">
+                <!-- 내용 -->
                 <template v-slot="{row}">
                     <badge class="badge-dot mr-4" type="">
                         <i :class="`bg-${row.statusType}`"></i>
@@ -37,30 +64,22 @@
                 </template>
             </el-table-column>
 
-            <el-table-column label="Users" min-width="190px">
+
+            <!-- 테이블 컬럼 및 제목 (Users) -->
+            <el-table-column label="Users" min-width="120px">
+                <!-- 내용 -->
                 <div class="avatar-group">
-                    <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip"
-                       data-original-title="Ryan Tompson">
-                        <img alt="Image placeholder" src="img/theme/team-1.jpg">
-                    </a>
-                    <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip"
-                       data-original-title="Romina Hadid">
-                        <img alt="Image placeholder" src="img/theme/team-2.jpg">
-                    </a>
-                    <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip"
-                       data-original-title="Alexander Smith">
-                        <img alt="Image placeholder" src="img/theme/team-3.jpg">
-                    </a>
-                    <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip"
-                       data-original-title="Jessica Doe">
-                        <img alt="Image placeholder" src="img/theme/team-4.jpg">
-                    </a>
+                    <div>김장은</div>
+                    
                 </div>
             </el-table-column>
 
+
+            <!-- 테이블 컬럼 및 제목 (Completion) -->
             <el-table-column label="Completion"
                              prop="completion"
                              min-width="240px">
+                <!-- 내용 -->
                 <template v-slot="{row}">
                     <div class="d-flex align-items-center">
                         <span class="completion mr-2">{{row.completion}}%</span>
@@ -70,31 +89,97 @@
                     </div>
                 </template>
             </el-table-column>
+
+            <!-- 테이블 컬럼 및 제목 (Completion) -->
+            <el-table-column label="Delete"
+                             prop="Delete"
+                             min-width="120px">
+                <!-- 내용 -->
+                <template>
+                    <base-button size="sm" outline type="default" id="remove_Button">
+                        <i class="ni ni-fat-remove" id="remove"></i>
+                    </base-button>
+                </template>
+            </el-table-column>
         </el-table>
 
-        <b-card-footer class="py-4 d-flex justify-content-end">
-            <base-pagination v-model="currentPage" :per-page="10" :total="50"></base-pagination>
-        </b-card-footer>
+        <!-- Add Modal -->
+        <AddPage v-if="showModal" @close="showModal = false">
+        </AddPage>
+        
     </b-card>
+
+    
 </template>
 
 <script>
-  import projects from './../projects'
-  import { Table, TableColumn} from 'element-ui'
+import projects from './../projects'
+import { Table, TableColumn} from 'element-ui'
+import BaseCheckbox from '../../../components/Inputs/BaseCheckbox.vue';
+import BaseButton from '../../../components/BaseButton.vue';
+import AddPage from "../Modal/AddPage.vue";
+    
   
   export default {
     // 사용시 태그 이름: <light-table />
     name: 'light-table',
     components: {
-      [Table.name]: Table,
-      [TableColumn.name]: TableColumn
+        BaseCheckbox,
+        BaseButton,
+        AddPage,
+        [Table.name]:Table,
+        [TableColumn.name]: TableColumn
     },
     data() {
       return {
         projects,
-        currentPage: 1
-      };
+        currentPage: 1,
+        showModal: false
+      }
+    },
+    methods: {
+        addView () {
+            console.log('Get Click');
+            console.log('Before showModal: ' + this.showModal);
+            this.showModal = true;
+            console.log('After showModal: ' + this.showModal);
+        },
+        close () {
+            console.log('Background Click');
+            console.log('Before showModal: ' + this.showModal);
+            this.showModal = false;
+            console.log('After showModal: ' + this.showModal);
+        }
     }
   }
   
 </script>
+
+<style scoped>
+#Header {
+    display: inline;
+    block-size: 0%;
+}
+
+#title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+#setting {
+    float: right;
+}
+
+#remove_Button {
+    border-style: none;
+    margin-left: 0.8rem;
+}
+
+#remove {
+    font-size: 1rem;
+
+}
+
+
+
+</style>
