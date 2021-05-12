@@ -28,7 +28,7 @@
             <!-- Title -->
             <base-input class="mb-0 mt-0"
                         name="Title"
-                        :rules="{required: true, min: 1, max:26}"
+                        :rules="{required: true, min: 1, max:30}"
                         prepend-icon="ni ni-caps-small"
                         type="text"
                         label="Title"
@@ -162,29 +162,30 @@ export default {
           console.log("Response Data: " + response.data);
           // 프로젝트 추가 성공 후 페이지 종료
           if(response.data == true) {
-            // 새로고침
-            // location.reload();
-            console.log(true);
-
             // 성공알림
             Swal.fire({
               title: 'Successful!',
-              text: '프로젝트가 성공적으로\n 추가되었습니다.',
+              text: '프로젝트가 성공적으로 추가되었습니다.',
               icon: 'success',
               confirmButtonText: '확인'
             });
+
+            // 새로고침
+            setTimeout(function(){
+              location.reload();
+            },1000);
+            console.log(true);
           }
           
           // 프로젝트 추가 실패 후 경고알림
           if(response.data == false) {
             // 새로고침
-            location.reload();
             console.log(false);
             
             // 경고알림
             Swal.fire({
               title: 'Error!',
-              text: '중복되는 값이 존재합니다. \n이름, 아이디, 비밀번호 중에 값을 변경해주세요!',
+              text: '중복되는 프로젝트명이 존재합니다.',
               icon: 'error',
               confirmButtonText: '확인'
             });
@@ -194,14 +195,25 @@ export default {
           // 프로젝트 추가 실패 시 에러출력
           console.log("Error: " + error);
       });
-
-      /*/ 새로고침
-      setTimeout(function(){
-        location.reload();
-      },100);
-      */
     },
-    // 회원 이름 정규식
+
+    
+
+    // 프로젝트 제목 정규식
+    onlyTitle(){
+      console.log("Title: " + this.model.title);
+      const reg =  /^[a-zA-Zㄱ-힣0-9 ]*$/;
+        if(reg.exec(this.model.title) == null){
+          Swal.fire({
+            title: 'Error!',
+            text: '특수문자는 입력이 불가능합니다.',
+            icon: 'error',
+            confirmButtonText: '확인'
+          });
+          return this.model.title = this.model.title.slice(0,-1);
+        }
+    },
+    // 프로젝트 담당자 정규식
     onlyUsers(){
       console.log("Users: " + this.model.users);
       const reg = /^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]*$/;
@@ -215,22 +227,10 @@ export default {
           return this.model.users = this.model.users.slice(0,-1);
         }
     },
-    onlyTitle(){
-      console.log("Title: " + this.model.title);
-      const reg =  /^[a-zA-Zㄱ-힣0-9]*$/;
-        if(reg.exec(this.model.title) == null){
-          Swal.fire({
-            title: 'Error!',
-            text: '특수문자는 입력이 불가능합니다.',
-            icon: 'error',
-            confirmButtonText: '확인'
-          });
-          return this.model.title = this.model.title.slice(0,-1);
-        }
-    },
+    // 프로젝트 목적 정규식
     onlyPurpose(){
       console.log("Purpose: " + this.model.purpose);
-      const reg =  /^[a-zA-Zㄱ-힣0-9]*$/;
+      const reg =  /^[a-zA-Zㄱ-힣0-9"'`~!@#$%^&* ,:+-]*$/;
         if(reg.exec(this.model.purpose) == null){
           Swal.fire({
             title: 'Error!',
@@ -242,8 +242,6 @@ export default {
         }
     },
 
-    
-    
     // Submit 정규식
     onlyInputOne(){
       // LOG
