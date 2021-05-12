@@ -1,7 +1,7 @@
 <template>
     <b-card no-body>
         <!-- Header 제목 & 설정 -->
-        <b-card-header class="border-0" id="Header">
+        <b-card-header class="border-0 mb-5" id="Header">
             <!-- 제목 -->
             <span id="title">Projects</span>
 
@@ -113,6 +113,9 @@
 </template>
 
 <script>
+/* eslint-disable */
+/*   JavaScript   */
+
 import projects from './../projects'
 import { Table, TableColumn} from 'element-ui'
 import BaseCheckbox from '../../../components/Inputs/BaseCheckbox.vue';
@@ -136,20 +139,6 @@ import AddPage from "../Modal/AddPage.vue";
         currentPage: 1,
         showModal: false
       }
-    },
-    methods: {
-        addView () {
-            console.log('Get Click');
-            console.log('Before showModal: ' + this.showModal);
-            this.showModal = true;
-            console.log('After showModal: ' + this.showModal);
-        },
-        close () {
-            console.log('Background Click');
-            console.log('Before showModal: ' + this.showModal);
-            this.showModal = false;
-            console.log('After showModal: ' + this.showModal);
-        }
     }
   }
   

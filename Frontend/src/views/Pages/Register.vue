@@ -45,8 +45,7 @@
                       prepend-icon="ni ni-single-02"
                       placeholder="Name"
                       v-model="model.name"
-                      v-on:keydown="onlyKoreaName"
-                      v-on:keyup="onlyKoreaName"
+                      ㅌ
             >
             </base-input>
 

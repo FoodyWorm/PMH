@@ -28,25 +28,25 @@
             <!-- Title -->
             <base-input class="mb-0 mt-0"
                         name="Title"
-                        :rules="{required: true, min: 1, max:20}"
+                        :rules="{required: true, min: 1, max:26}"
                         prepend-icon="ni ni-caps-small"
                         type="text"
                         label="Title"
                         placeholder="Title"
                         v-model="model.title"
+                        v-on:keydown="onlyTitle"
+                        v-on:keyup="onlyTitle"
             >
             </base-input>
 
             <!-- Department -->
             <base-input class="mb-0 mt-0"
-                        name="Department"
-                        :rules="{required: true, min: 1, max:20}"
                         prepend-icon="ni ni-badge"
                         type="select"
                         label="Department"
-                        v-model="model.department"
             >
-              <select class="form-control">
+              <select class="form-control" name="department" v-model="model.department">
+                  <option>Department</option>
                   <option>All</option>
                   <option>대표</option>
                   <option>R&D</option>
@@ -60,12 +60,14 @@
             <!-- Users -->
             <base-input class="mb-0 mt-0"
                         name="Users"
-                        :rules="{required: true, min: 1, max:20}"
+                        :rules="{required: true, min: 1, max:13}"
                         prepend-icon="ni ni-single-02"
                         type="text"
                         label="Users"
                         placeholder="Users"
                         v-model="model.users"
+                        v-on:keydown="onlyUsers"
+                        v-on:keyup="onlyUsers"
             >
             </base-input>
 
@@ -95,14 +97,17 @@
             <h4>Purpose</h4>
             <b-form-textarea
               id="textarea"
+              :rules="{required: true, min: 1, max:100}"
               v-model="model.purpose"
               placeholder="purpose..."
               rows="3"
               max-rows="6"
+              v-on:keydown="onlyPurpose"
+              v-on:keyup="onlyPurpose"
             ></b-form-textarea>
 
             <!-- Submit Button -->
-            <base-button type="primary" native-type="submit" class="my-4" id="submit">Add</base-button>
+            <base-button v-on:click="onlyInputOne" type="primary" native-type="submit" class="my-4" id="submit">Add</base-button>
 
           </b-form>
           </validation-observer>
@@ -130,7 +135,7 @@ export default {
         show: false,
         model: {
           title: '',
-          department: '',
+          department: 'Department',
           users: '',
           startDay: '',
           endDay: '',
@@ -140,10 +145,176 @@ export default {
   },
   methods: {
     onSubmit() {
-        // Submit
-    }
-  }
+      // API: /projectAddTry
+      axios({
+          method: "POST",
+          url: '/projectAddTry',
+          data: {
+            "title": this.model.title,
+            "department": this.model.department,
+            "users": this.model.users,
+            "startDay": this.model.startDay,
+            "endDay": this.model.endDay,
+            "purpose": this.model.purpose
+          }
+      })
+      .then((response) => {
+          console.log("Response Data: " + response.data);
+          // 프로젝트 추가 성공 후 페이지 종료
+          if(response.data == true) {
+            // 새로고침
+            // location.reload();
+            console.log(true);
+
+            // 성공알림
+            Swal.fire({
+              title: 'Successful!',
+              text: '프로젝트가 성공적으로\n 추가되었습니다.',
+              icon: 'success',
+              confirmButtonText: '확인'
+            });
+          }
+          
+          // 프로젝트 추가 실패 후 경고알림
+          if(response.data == false) {
+            // 새로고침
+            location.reload();
+            console.log(false);
+            
+            // 경고알림
+            Swal.fire({
+              title: 'Error!',
+              text: '중복되는 값이 존재합니다. \n이름, 아이디, 비밀번호 중에 값을 변경해주세요!',
+              icon: 'error',
+              confirmButtonText: '확인'
+            });
+          }
+      })
+      .catch((error) => {
+          // 프로젝트 추가 실패 시 에러출력
+          console.log("Error: " + error);
+      });
+
+      /*/ 새로고침
+      setTimeout(function(){
+        location.reload();
+      },100);
+      */
+    },
+    // 회원 이름 정규식
+    onlyUsers(){
+      console.log("Users: " + this.model.users);
+      const reg = /^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]*$/;
+        if(reg.exec(this.model.users) == null){
+          Swal.fire({
+            title: 'Error!',
+            text: '한글만 입력해주세요.',
+            icon: 'error',
+            confirmButtonText: '확인'
+          });
+          return this.model.users = this.model.users.slice(0,-1);
+        }
+    },
+    onlyTitle(){
+      console.log("Title: " + this.model.title);
+      const reg =  /^[a-zA-Zㄱ-힣0-9]*$/;
+        if(reg.exec(this.model.title) == null){
+          Swal.fire({
+            title: 'Error!',
+            text: '특수문자는 입력이 불가능합니다.',
+            icon: 'error',
+            confirmButtonText: '확인'
+          });
+          return this.model.title = this.model.title.slice(0,-1);
+        }
+    },
+    onlyPurpose(){
+      console.log("Purpose: " + this.model.purpose);
+      const reg =  /^[a-zA-Zㄱ-힣0-9]*$/;
+        if(reg.exec(this.model.purpose) == null){
+          Swal.fire({
+            title: 'Error!',
+            text: '특수문자는 입력이 불가능합니다.',
+            icon: 'error',
+            confirmButtonText: '확인'
+          });
+          return this.model.purpose = this.model.purpose.slice(0,-1);
+        }
+    },
+
     
+    
+    // Submit 정규식
+    onlyInputOne(){
+      // LOG
+      console.log("----------------------------------");
+      console.log("- Project Add Data - \n ");
+      console.log(" Title: " + this.model.title);
+      console.log(" Department: " + this.model.department);
+      console.log(" Users: " + this.model.users);
+      console.log(" Start Day: " + this.model.startDay);
+      console.log(" End Day: " + this.model.endDay + "\n");
+      console.log(" Purpose: " + this.model.purpose  + "\n");
+      console.log("----------------------------------");
+      
+        // 입력값 비교확인 (title, department, users, startday, endday, purpose)
+        if(this.model.title == ""){
+          Swal.fire({
+            title: 'Error!',
+            text: '프로젝트명을 입력해주세요!',
+            icon: 'error',
+            confirmButtonText: '확인'
+          })
+        }
+    
+        else if(this.model.department == "Department"){
+          Swal.fire({
+            title: 'Error!',
+            text: '부서를 선택해주세요!',
+            icon: 'error',
+            confirmButtonText: '확인'
+          })
+        }
+
+        else if(this.model.users == ""){
+          Swal.fire({
+            title: 'Error!',
+            text: '담당자명을 입력해주세요!',
+            icon: 'error',
+            confirmButtonText: '확인'
+          })
+        }
+       
+        else if((this.model.startDay) == ""){
+          Swal.fire({
+            title: 'Error!',
+            text: '시작일을 선택해주세요!',
+            icon: 'error',
+            confirmButtonText: '확인'
+          })
+        }
+
+        else if((this.model.endDay) == ""){
+          Swal.fire({
+            title: 'Error!',
+            text: '마감일을 선택해주세요!',
+            icon: 'error',
+            confirmButtonText: '확인'
+          })
+        }
+
+        else if((this.model.purpose) == ""){
+          Swal.fire({
+            title: 'Error!',
+            text: '목적을 작성해주세요!',
+            icon: 'error',
+            confirmButtonText: '확인'
+          })
+        }
+    }
+
+
+  }
 }
 </script>
 
@@ -175,14 +346,10 @@ export default {
 
 
 
-
-
-
-
 /* Modal */
 .modal-mask {
   position: absolute;
-  z-index: 9998;
+  z-index: 1000;
   top: 0;
   left: 0;
   width: 100%;

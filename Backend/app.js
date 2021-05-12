@@ -8,6 +8,7 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/login');
 var registerRouter = require('./routes/register');
+var projectAddRouter = require('./routes/projcetAdd');
 
 // express 모듈을 app에 적용 //
 var app = express();
@@ -24,6 +25,7 @@ app.use(require('connect-history-api-fallback')());
 app.use('/', indexRouter);
 app.use('/loginTry', loginRouter);
 app.use('/registerTry', registerRouter);
+app.use('/projectAddTry', projectAddRouter);
 
 // 모든, 폴더에서 이 기능들이 적용 될 수 있도록 적용 //
 module.exports = app;
