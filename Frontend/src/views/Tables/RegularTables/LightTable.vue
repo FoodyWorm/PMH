@@ -108,9 +108,8 @@
         </AddPage>
         
     </b-card>
-
-    
 </template>
+
 
 <script>
 /* eslint-disable */
@@ -143,6 +142,7 @@ import AddPage from "../Modal/AddPage.vue";
   }
   
 </script>
+
 
 <style scoped>
 #Header {

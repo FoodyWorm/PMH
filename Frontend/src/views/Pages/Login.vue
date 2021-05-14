@@ -122,7 +122,22 @@ export default {
           console.log("응답받은 데이터 값: " + response.data);
           // 로그인 성공 후 메인 페이지 이동
           if(response.data == true) {
+            // Move Projects
             this.$router.replace('projects');
+
+            // Get Projects
+            axios({
+              method: "get",
+              url: '/projectGetTry'
+            }).then((response) => {
+              // Todo Save - Vuex
+              //    H e r e     //
+              console.log("Get Projects: " + response);
+
+            }).catch((error) => {
+              console.log("Error: " + error);
+            });
+
           }
 
           // 로그인 실패 시  경고알림

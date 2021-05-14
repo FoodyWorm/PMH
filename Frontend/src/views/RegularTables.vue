@@ -24,6 +24,8 @@
   import projects from './Tables/projects'
   import users from './Tables/users'
   import LightTable from "./Tables/RegularTables/LightTable";
+  // Axios 요청으로 프로젝트 데이터를 GET
+
 
   export default {
     components: {
@@ -40,8 +42,10 @@
         users
       };
     }
-  };
+  };  
 </script>
+
+
 <style>
 .el-table.table-dark{
   background-color: #172b4d;
