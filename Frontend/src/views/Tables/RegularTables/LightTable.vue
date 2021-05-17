@@ -28,8 +28,7 @@
 
             <!-- 테이블 컬럼 (Check) -->
             <el-table-column label="Check"
-                             min-width="110px"
-                             prop="Check">
+                             min-width="110px">
                 <!-- 내용 -->
                 <template>
                     <div class="d-flex align-items-center ml-2">
@@ -41,7 +40,7 @@
             <!-- 테이블 컬럼 (Project Title) -->
             <el-table-column label="Project Title"
                              min-width="310px"
-                             prop="name">
+                             prop="Title">
                 <!-- 내용 -->
                 <template v-slot="{row}">
                     <b-media no-body class="align-items-center">
@@ -86,7 +85,7 @@
                     <div class="d-flex align-items-center">
                         <span class="completion mr-2">{{row.completion}}%</span>
                         <div>
-                            <base-progress :type="row.statusType" :value="row.completion"/>
+                            <base-progress v-bind:type="row.statusType" v-bind:value="row.completion"/>
                         </div>
                     </div>
                 </template>
@@ -137,7 +136,7 @@ new Vuex.Store({
 });
     
   
-  export default {
+export default {
     // 사용시 태그 이름: <light-table />
     name: 'light-table',
     components: {
@@ -154,12 +153,15 @@ new Vuex.Store({
         showModal: false
       }
     },
+
+
+    
     methods: {
         vuex_Store() {
             console.log(this.$store.state.projects[0].project_title);
         }
     }
-  }
+}
   
 </script>
 

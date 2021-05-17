@@ -1,6 +1,7 @@
 
 export default [
   {
+    check: 0,
     title: 'Argon Design System',
     status: 'delayed',
     statusType: 'danger',
@@ -47,11 +48,5 @@ export default [
     status: 'delayed',
     statusType: 'danger',
     completion: 72
-  },
-  {
-    title: 'Vue Paper UI Kit PRO',
-    status: 'completed',
-    statusType: 'success',
-    completion: 100
   }
 ]

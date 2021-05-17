@@ -200,6 +200,12 @@ Template: 라우터 변경 (
     2. users.js 및 관련 코드 제거
 
 
+- 2021. 05.17. 프로젝트 추가 기능 제작 (52%) - [ 프로젝트 추가 기능 제작 ] 
+    1. RegularTable, LightTable, projects.js의 구조와 원리 이해하기
+    2. element-ui 이해하기
+
+
+
 
 
 
