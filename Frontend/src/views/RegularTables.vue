@@ -1,4 +1,5 @@
 <template>
+<!-- Add -->
   <div>
     <!-- 상단 메뉴바 -->
     <base-header class="pb-6 pb-8 pt-5 pt-md-8 bg-gradient-success">
@@ -24,8 +25,7 @@
   import projects from './Tables/projects'
   import users from './Tables/users'
   import LightTable from "./Tables/RegularTables/LightTable";
-  // Axios 요청으로 프로젝트 데이터를 GET
-
+  
 
   export default {
     components: {

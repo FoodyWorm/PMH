@@ -88,6 +88,36 @@
 /*   JavaScript   */
 import axios from 'axios'
 import Swal from 'sweetalert2'
+import Vue from 'vue'
+import Vuex from 'vuex'
+import createPersistedState from "vuex-persistedstate";
+Vue.use(Vuex);
+
+
+// Vuex의 관리포인트 - Store: (state[상태 Data], mutations[상태변경-동기], actions[상태변경요청-비동기], getter[상태업로드])
+const store = new Vuex.Store({
+    // 쿠키나 저장소를 활용하지 않아도 되도록, Vuex의 데이터를 자동으로 저장소에 저장해주는 플러그인
+    plugins: [
+      createPersistedState()
+    ],
+    // 정적인 상태의 데이터 (일반호출 - 값의 변경은 mutations를 통해서만 가능하다.)
+    state: {
+        projects: []
+    },
+    // 동적인 상태의 데이터 및 함수 (commit호출)
+    mutations: {
+        // logic
+    },
+    // mutations를 동기가 아닌 비동기로 제어하기 위한 수단. (dispatch호출)
+    actions: {
+        // logic
+    },
+    // computed처럼 계산된 속성. state를 활용하여, view에 바인딩하기 위한 수단.
+    getters: {
+        // logic
+    }
+});
+
 
 /*   Vue Instance   */
 export default {
@@ -98,6 +128,11 @@ export default {
         password: ''
       }
     };
+  },
+  computed: {
+      projects() {
+        return store.state.projects;
+      }
   },
   methods: {
     // 서버에 로그인 요청
@@ -129,10 +164,11 @@ export default {
             axios({
               method: "get",
               url: '/projectGetTry'
+              
             }).then((response) => {
               // Todo Save - Vuex
-              //    H e r e     //
               console.log("Get Projects: " + response);
+              this.computed.projects = response;
 
             }).catch((error) => {
               console.log("Error: " + error);

@@ -25,7 +25,9 @@
     </collapse-transition>
   </b-card>
 </template>
+
 <script>
+/* eslint-disable */
 import { CollapseTransition } from 'vue2-transitions';
 
 export default {
