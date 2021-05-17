@@ -9,7 +9,7 @@
               <h1 class="text-light">Ooops!</h1>
               <p class="text-lead text-white">Page not found. Don't worry though, we have plenty of other pages to explore</p>
 
-              <router-link to="/dashboard" class="font-weight-bold text-white mt-5">Back to dashboard</router-link>
+              <router-link to="/projects" class="font-weight-bold text-white mt-5">Back to dashboard</router-link>
             </b-col>
           </b-row>
         </div>

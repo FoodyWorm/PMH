@@ -100,21 +100,15 @@ const store = new Vuex.Store({
     plugins: [
       createPersistedState()
     ],
-    // 정적인 상태의 데이터 (일반호출 - 값의 변경은 mutations를 통해서만 가능하다.)
     state: {
-        projects: []
+      projects: null
     },
     // 동적인 상태의 데이터 및 함수 (commit호출)
     mutations: {
-        // logic
-    },
-    // mutations를 동기가 아닌 비동기로 제어하기 위한 수단. (dispatch호출)
-    actions: {
-        // logic
-    },
-    // computed처럼 계산된 속성. state를 활용하여, view에 바인딩하기 위한 수단.
-    getters: {
-        // logic
+      setProjects(state, payload) {
+        console.log("Set Projects Now... (Title) " + payload.projects[0].project_title);
+        state.projects = payload.projects;
+      }
     }
 });
 
@@ -128,11 +122,6 @@ export default {
         password: ''
       }
     };
-  },
-  computed: {
-      projects() {
-        return store.state.projects;
-      }
   },
   methods: {
     // 서버에 로그인 요청
@@ -167,13 +156,17 @@ export default {
               
             }).then((response) => {
               // Todo Save - Vuex
-              console.log("Get Projects: " + response);
-              this.computed.projects = response;
+              console.log("Get Projects: " + response.data);
+              console.log("Set Projects to Vuex...");
+              store.commit('setProjects', {
+                projects: response.data
+
+              });
 
             }).catch((error) => {
               console.log("Error: " + error);
-            });
 
+            });
           }
 
           // 로그인 실패 시  경고알림

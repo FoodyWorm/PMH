@@ -99,7 +99,7 @@
                 <div class="row">
                   <!-- 로고 -->
                   <div class="col-6 collapse-brand">
-                              <router-link to="/dashboard">
+                              <router-link to="/projects">
                                   <img :src="logo">
                               </router-link>
                   </div>

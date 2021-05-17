@@ -16,6 +16,9 @@
                 <b-dropdown-item href="#">View</b-dropdown-item>
                 <b-dropdown-item href="#">Schedules</b-dropdown-item>
             </b-dropdown>
+
+            <!-- 임시 테스트 버튼 -->
+            <base-button v-on:click="vuex_Store">Vuex</base-button>
         </b-card-header>
 
 
@@ -101,11 +104,14 @@
                     </base-button>
                 </template>
             </el-table-column>
+            
         </el-table>
 
         <!-- Add Modal -->
         <AddPage v-if="showModal" @close="showModal = false">
         </AddPage>
+        
+        
         
     </b-card>
 </template>
@@ -113,13 +119,23 @@
 
 <script>
 /* eslint-disable */
-/*   JavaScript   */
-
 import projects from './../projects'
 import { Table, TableColumn} from 'element-ui'
 import BaseCheckbox from '../../../components/Inputs/BaseCheckbox.vue';
 import BaseButton from '../../../components/BaseButton.vue';
 import AddPage from "../Modal/AddPage.vue";
+import Vue from 'vue'
+import Vuex from 'vuex'
+import createPersistedState from "vuex-persistedstate";
+Vue.use(Vuex);
+
+// Vuex의 관리포인트 - Store: (state[상태 Data], mutations[상태변경-동기], actions[상태변경요청-비동기], getter[상태업로드])
+new Vuex.Store({
+    // 쿠키나 저장소를 활용하지 않아도 되도록, Vuex의 데이터를 자동으로 저장소에 저장해주는 플러그인
+    plugins: [
+      createPersistedState()
+    ]
+});
     
   
   export default {
@@ -138,6 +154,11 @@ import AddPage from "../Modal/AddPage.vue";
         currentPage: 1,
         showModal: false
       }
+    },
+    methods: {
+        vuex_Store() {
+            console.log(this.$store.state.projects[0].project_title);
+        }
     }
   }
   

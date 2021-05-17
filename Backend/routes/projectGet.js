@@ -28,8 +28,8 @@ router.get('/', (req, res, next) => {
         connection.query(select_Query, (err, result) => {
             // Select - getData
             if(err) { throw err; }
-            console.log("Select Data: " + result);
-            console.log("Select Json Data: " + JSON.parse(JSON.stringify(result)) + "\n");
+            console.log("Get Projects_Title: " + result[0].project_title);
+            console.log("Get Projects_Title_Json: " + JSON.parse(JSON.stringify(result))[0].project_title + "\n");
             const getData = JSON.parse(JSON.stringify(result));
             //console.log("getData.project_title: " + getData[0].project_title);
 
