@@ -7,12 +7,11 @@
 
             <!-- 설정 -->
             <b-dropdown right id="setting">
-              <template v-slot:button-content>
-                <i class="ni ni-settings-gear-65 mb-0 mt-0"></i>
-                <span class="nav-link-inner--text d-lg-none">Settings</span>
-                
-              </template>
-                <b-dropdown-item id="show-modal" @click="showModal = true">ADD</b-dropdown-item>
+                <template v-slot:button-content>
+                    <i class="ni ni-settings-gear-65 mb-0 mt-0"></i>
+                    <span class="nav-link-inner--text d-lg-none">Settings</span>
+                </template>
+                <b-dropdown-item id="show-modal" v-on:click="showModal = true">ADD</b-dropdown-item>
                 <b-dropdown-item href="#">View</b-dropdown-item>
                 <b-dropdown-item href="#">Schedules</b-dropdown-item>
             </b-dropdown>
@@ -22,12 +21,12 @@
         </b-card-header>
 
 
-        <!-- 테이블 속성 및 크기 -->
+        <!-- Content 속성 & 크기 -->
         <el-table class="table-responsive table"
                   header-row-class-name="thead-light"
-                  :data="projects">
+                  v-bind:data="projects">
 
-            <!-- 테이블 컬럼 및 제목 (Status) -->
+            <!-- 테이블 컬럼 (Check) -->
             <el-table-column label="Check"
                              min-width="110px"
                              prop="Check">
@@ -39,7 +38,7 @@
                 </template>
             </el-table-column>
 
-            <!-- 테이블 컬럼 및 제목 (Project Title) -->
+            <!-- 테이블 컬럼 (Project Title) -->
             <el-table-column label="Project Title"
                              min-width="310px"
                              prop="name">
@@ -54,7 +53,7 @@
             </el-table-column>
 
 
-            <!-- 테이블 컬럼 및 제목 (Status) -->
+            <!-- 테이블 컬럼 (Status) -->
             <el-table-column label="Status"
                              min-width="150px"
                              prop="status">
@@ -68,7 +67,7 @@
             </el-table-column>
 
 
-            <!-- 테이블 컬럼 및 제목 (Users) -->
+            <!-- 테이블 컬럼 (Users) -->
             <el-table-column label="Users" min-width="120px">
                 <!-- 내용 -->
                 <div class="avatar-group">
@@ -78,7 +77,7 @@
             </el-table-column>
 
 
-            <!-- 테이블 컬럼 및 제목 (Completion) -->
+            <!-- 테이블 컬럼 (Completion) -->
             <el-table-column label="Completion"
                              prop="completion"
                              min-width="240px">
@@ -93,7 +92,8 @@
                 </template>
             </el-table-column>
 
-            <!-- 테이블 컬럼 및 제목 (Completion) -->
+
+            <!-- 테이블 컬럼  (Delete) -->
             <el-table-column label="Delete"
                              prop="Delete"
                              min-width="120px">
@@ -104,7 +104,6 @@
                     </base-button>
                 </template>
             </el-table-column>
-            
         </el-table>
 
         <!-- Add Modal -->

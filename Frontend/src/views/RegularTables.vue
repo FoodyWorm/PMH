@@ -23,7 +23,6 @@
 <script>
   import { Dropdown, DropdownItem, DropdownMenu, Table, TableColumn } from 'element-ui';
   import projects from './Tables/projects'
-  import users from './Tables/users'
   import LightTable from "./Tables/RegularTables/LightTable";
   
 
@@ -38,8 +37,7 @@
     },
     data() {
       return {
-        projects,
-        users
+        projects
       };
     }
   };  
