@@ -15,20 +15,18 @@
                 <b-dropdown-item href="#">View</b-dropdown-item>
                 <b-dropdown-item href="#">Schedules</b-dropdown-item>
             </b-dropdown>
-
-            <!-- 임시 테스트 버튼 -->
-            <base-button v-on:click="vuex_Store">Vuex</base-button>
         </b-card-header>
 
 
-        <!-- Content 속성 & 크기 -->
+        <!-- Content 테이블 속성 & 크기 -->
         <el-table class="table-responsive table"
                   header-row-class-name="thead-light"
                   v-bind:data="projects">
 
             <!-- 테이블 컬럼 (Check) -->
             <el-table-column label="Check"
-                             min-width="110px">
+                             min-width="110px"
+                             prop="check" >
                 <!-- 내용 -->
                 <template>
                     <div class="d-flex align-items-center ml-2">
@@ -39,16 +37,9 @@
 
             <!-- 테이블 컬럼 (Project Title) -->
             <el-table-column label="Project Title"
+                             prop="project_title"
                              min-width="310px"
-                             prop="Title">
-                <!-- 내용 -->
-                <template v-slot="{row}">
-                    <b-media no-body class="align-items-center">
-                        <b-media-body>
-                            <span class="font-weight-600 name mb-0 text-sm">{{row.title}}</span>
-                        </b-media-body>
-                    </b-media>
-                </template>
+                             >
             </el-table-column>
 
 
@@ -56,36 +47,29 @@
             <el-table-column label="Status"
                              min-width="150px"
                              prop="status">
-                <!-- 내용 -->
-                <template v-slot="{row}">
+                <template v-slot="projects">
                     <badge class="badge-dot mr-4" type="">
-                        <i :class="`bg-${row.statusType}`"></i>
-                        <span class="status" :class="`text-${row.statusType}`">{{row.status}}</span>
+                        <i :class="`bg-${projects.statusType}`"></i>
+                        <span class="status" :class="`text-${projects.statusType}`">{{projects.status}}</span>
                     </badge>
                 </template>
             </el-table-column>
 
 
             <!-- 테이블 컬럼 (Users) -->
-            <el-table-column label="Users" min-width="120px">
-                <!-- 내용 -->
-                <div class="avatar-group">
-                    <div>김장은</div>
-                    
-                </div>
+            <el-table-column label="Users" min-width="120px" prop="project_users">
             </el-table-column>
 
 
             <!-- 테이블 컬럼 (Completion) -->
             <el-table-column label="Completion"
-                             prop="completion"
-                             min-width="240px">
-                <!-- 내용 -->
-                <template v-slot="{row}">
+                             min-width="240px"
+                             prop="completion" >
+                <template v-slot="projects">
                     <div class="d-flex align-items-center">
-                        <span class="completion mr-2">{{row.completion}}%</span>
+                        <span class="completion mr-2">{{projects.completion}}%</span>
                         <div>
-                            <base-progress v-bind:type="row.statusType" v-bind:value="row.completion"/>
+                            <base-progress :type="projects.statusType" :value="projects.completion"/>
                         </div>
                     </div>
                 </template>
@@ -94,11 +78,11 @@
 
             <!-- 테이블 컬럼  (Delete) -->
             <el-table-column label="Delete"
-                             prop="Delete"
-                             min-width="120px">
+                             min-width="120px"
+                             prop="delete" >
                 <!-- 내용 -->
-                <template>
-                    <base-button size="sm" outline type="default" id="remove_Button">
+                <template slot-scope="scope">
+                    <base-button size="sm" outline type="default" id="remove_Button" v-on:click.native.prevent="deleteRow(scope.$index, projects)">
                         <i class="ni ni-fat-remove" id="remove"></i>
                     </base-button>
                 </template>
@@ -108,22 +92,20 @@
         <!-- Add Modal -->
         <AddPage v-if="showModal" @close="showModal = false">
         </AddPage>
-        
-        
-        
+   
     </b-card>
 </template>
 
 
 <script>
 /* eslint-disable */
-import projects from './../projects'
-import { Table, TableColumn} from 'element-ui'
+//import projects from './../projects'
+import { Table, TableColumn} from 'element-ui';
 import BaseCheckbox from '../../../components/Inputs/BaseCheckbox.vue';
 import BaseButton from '../../../components/BaseButton.vue';
 import AddPage from "../Modal/AddPage.vue";
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from 'vue';
+import Vuex from 'vuex';
 import createPersistedState from "vuex-persistedstate";
 Vue.use(Vuex);
 
@@ -134,8 +116,7 @@ new Vuex.Store({
       createPersistedState()
     ]
 });
-    
-  
+
 export default {
     // 사용시 태그 이름: <light-table />
     name: 'light-table',
@@ -148,17 +129,14 @@ export default {
     },
     data() {
       return {
-        projects,
         currentPage: 1,
-        showModal: false
+        showModal: false,
+        projects: this.$store.state.projects
       }
     },
-
-
-    
     methods: {
-        vuex_Store() {
-            console.log(this.$store.state.projects[0].project_title);
+        deleteRow(index, rows) {
+            rows.splice(index, 1);
         }
     }
 }

@@ -94,7 +94,7 @@ import createPersistedState from "vuex-persistedstate";
 Vue.use(Vuex);
 
 
-// Vuex의 관리포인트 - Store: (state[상태 Data], mutations[상태변경-동기], actions[상태변경요청-비동기], getter[상태업로드])
+// Vuex에 데이터 저장
 const store = new Vuex.Store({
     // 쿠키나 저장소를 활용하지 않아도 되도록, Vuex의 데이터를 자동으로 저장소에 저장해주는 플러그인
     plugins: [
@@ -158,9 +158,17 @@ export default {
               // Todo Save - Vuex
               console.log("Get Projects: " + response.data);
               console.log("Set Projects to Vuex...");
+
+              // 데이터 가공 (status, statusType, competion 추가)
+              for(var i=0; i<=response.data.length; i++) {
+                response.data.status = 'on schedule';
+                response.data.statusType = 'info',
+                response.data.completion = 0
+              }
+
+              // Vuex에 데이터 커밋
               store.commit('setProjects', {
                 projects: response.data
-
               });
 
             }).catch((error) => {

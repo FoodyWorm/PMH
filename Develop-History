@@ -210,6 +210,14 @@ Template: 라우터 변경 (
     2. Register.vue에 name 정규식이 작동되지 않던 오류 해결
 
 
+- 2021. 05.18. 프로젝트 추가 기능 제작 (80%) - [ 프로젝트 추가 기능 제작 ] 
+    1. Element_Table 구조 전면 개편
+    2. Vuex의 데이터를 Element_Table을 활용하여 데이터 표시 (Title, Users)
+    3. Vuex 테스트 버튼 삭제
+    4. Delete 기능 구현 ( 단, 일시적으로 테이블안에서만 )
+    5. 프로젝트 데이터 객체 추가 (status, statusType, completion) 테스트 시도
+        -> 객체추가가 제대로 되지 않은 것 같다.
+
 
 
 
