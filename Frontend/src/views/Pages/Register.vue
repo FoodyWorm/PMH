@@ -41,11 +41,12 @@
             <base-input alternative
                       class="mb-3"
                       name="name"
-                      :rules="{required: true}"
+                      :rules="{required: true, min: 2, max:4}"
                       prepend-icon="ni ni-single-02"
                       placeholder="Name"
                       v-model="model.name"
-                      ㅌ
+                      v-on:keydown="onlyKoreaName"
+                      v-on:keyup="onlyKoreaName"
             >
             </base-input>
 
@@ -184,7 +185,7 @@ export default {
         if(reg.exec(this.model.name) == null){
           Swal.fire({
             title: 'Error!',
-            text: '한글만 입력해주세요. (3자 ~ 5자 이내)',
+            text: '한글만 입력해주세요. (2자 ~ 4자 이내)',
             icon: 'error',
             confirmButtonText: '확인'
           });
