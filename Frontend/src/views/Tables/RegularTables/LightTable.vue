@@ -46,11 +46,12 @@
             <!-- 테이블 컬럼 (Status) -->
             <el-table-column label="Status"
                              min-width="150px"
-                             prop="status">
-                <template v-slot="projects">
+                             prop="project_status">
+                             
+                <template slot-scope="row">
                     <badge class="badge-dot mr-4" type="">
-                        <i :class="`bg-${projects.statusType}`"></i>
-                        <span class="status" :class="`text-${projects.statusType}`">{{projects.status}}</span>
+                        <i :class="`bg-${row.statusType}`"></i>
+                        <span class="status" :class="`text-${row.statusType}`">{{ row.status }}</span>
                     </badge>
                 </template>
             </el-table-column>
@@ -64,15 +65,15 @@
             <!-- 테이블 컬럼 (Completion) -->
             <el-table-column label="Completion"
                              min-width="240px"
-                             prop="completion" >
-                <template v-slot="projects">
+                             prop="project_completion" >
+                <!-- <template v-slot="projects">
                     <div class="d-flex align-items-center">
-                        <span class="completion mr-2">{{projects.completion}}%</span>
+                        <span class="completion mr-2">{{ projects.completion }}%</span>
                         <div>
                             <base-progress :type="projects.statusType" :value="projects.completion"/>
                         </div>
                     </div>
-                </template>
+                </template> -->
             </el-table-column>
 
 
@@ -81,8 +82,8 @@
                              min-width="120px"
                              prop="delete" >
                 <!-- 내용 -->
-                <template slot-scope="scope">
-                    <base-button size="sm" outline type="default" id="remove_Button" v-on:click.native.prevent="deleteRow(scope.$index, projects)">
+                <template slot-scope="test">
+                    <base-button size="sm" outline type="default" id="remove_Button" v-on:click.native.prevent="deleteRow(test.$index, projects)">
                         <i class="ni ni-fat-remove" id="remove"></i>
                     </base-button>
                 </template>
@@ -100,14 +101,14 @@
 <script>
 /* eslint-disable */
 //import projects from './../projects'
-import { Table, TableColumn} from 'element-ui';
+import { Table, TableColumn } from 'element-ui';
 import BaseCheckbox from '../../../components/Inputs/BaseCheckbox.vue';
 import BaseButton from '../../../components/BaseButton.vue';
 import AddPage from "../Modal/AddPage.vue";
 import Vue from 'vue';
 import Vuex from 'vuex';
 import createPersistedState from "vuex-persistedstate";
-Vue.use(Vuex);
+Vue.use(Vuex); 
 
 // Vuex의 관리포인트 - Store: (state[상태 Data], mutations[상태변경-동기], actions[상태변경요청-비동기], getter[상태업로드])
 new Vuex.Store({
@@ -140,7 +141,6 @@ export default {
         }
     }
 }
-  
 </script>
 
 
@@ -168,7 +168,4 @@ export default {
     font-size: 1rem;
 
 }
-
-
-
 </style>

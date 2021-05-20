@@ -21,7 +21,10 @@ CREATE TABLE projects(
 	project_users VARCHAR(20) NOT NULL,
 	project_startDay DATE NOT NULL,
 	project_endDay DATE NOT NULL,
-	project_purpose VARCHAR(100) NOT NULL
+	project_purpose VARCHAR(100) NOT NULL,
+	project_status VARCHAR(100) NOT NULL,
+	project_statusType VARCHAR(100) NOT NULL,
+	project_completion INT(100) NOT NULL
 );
 
 /* Show Table */
@@ -40,8 +43,8 @@ DROP TABLE projects;
 INSERT INTO users (user_index, user_id, user_pw, user_name, user_department, user_authority) VALUES (0, 'rooter', '465132zz', '김장은', '스마트팜', '3');
 
 /* Test Project */
-INSERT INTO projects (project_index, project_title, project_department, project_users, project_startDay, project_endDay, project_purpose) VALUES (
-	0, 'Project Management HomePage', '스마트팜', '김장은', '2021-05-01', '2021-05-14', '사내 업무 효율을 최대로 증진시키기 위한 홈페이지를 제작합니다.'
+INSERT INTO projects (project_index, project_title, project_department, project_users, project_startDay, project_endDay, project_purpose, project_status, project_statusType, project_completion) VALUES (
+	0, 'Project Management HomePage', '스마트팜', '김장은', '2021-05-01', '2021-05-14', '사내 업무 효율을 최대로 증진시키기 위한 홈페이지를 제작합니다.', 'on schedule', 'info', 0
 ); 
 
 

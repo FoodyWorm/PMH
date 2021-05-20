@@ -159,23 +159,16 @@ export default {
               console.log("Get Projects: " + response.data);
               console.log("Set Projects to Vuex...");
 
-              // 데이터 가공 (status, statusType, competion 추가)
-              for(var i=0; i<=response.data.length; i++) {
-                response.data.status = 'on schedule';
-                response.data.statusType = 'info',
-                response.data.completion = 0
-              }
-
               // Vuex에 데이터 커밋
               store.commit('setProjects', {
                 projects: response.data
               });
-
+              
             }).catch((error) => {
               console.log("Error: " + error);
 
             });
-          }
+          }// Get Projects End
 
           // 로그인 실패 시  경고알림
           if(response.data == false) {

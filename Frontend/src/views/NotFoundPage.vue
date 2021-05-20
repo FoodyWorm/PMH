@@ -20,6 +20,7 @@
         </svg>
       </div>
     </div>
+
     <!-- Page content -->
     <section class="py-6">
       <b-container >
@@ -37,6 +38,7 @@
         </b-row>
       </b-container>
     </section>
+    
   </div>
 </template>
 
