@@ -358,11 +358,13 @@ export default {
 }
 
 .modal-wrapper {
+  z-index: 1001;
   display: table-cell;
   vertical-align: middle;
 }
 
 .modal-container {
+  z-index: 1002;
   width: 17rem;
   margin: 0px auto;
   padding: 0.5rem 0.5rem;

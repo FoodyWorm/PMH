@@ -6,13 +6,13 @@
     :class="{'navbar-dark': type === 'default'}"
   >
     <!-- 프로젝트 이름 -->
-    <a href="#" aria-current="page" class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block active router-link-active"> {{$route.name}} </a>
+    <a href="#projects" aria-current="page" class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block active router-link-active"> {{$route.name}}</a>
 
     <!-- 프로필 메뉴 링크 -->
     <b-navbar-nav class="align-items-center ml-md-auto">
       <li class="nav-item d-sm-none">
         <!-- 메뉴바 링크 -->
-        <a class="nav-link" href="#" data-action="search-show" data-target="#navbar-search-main">
+        <a class="nav-link" href="#profile" data-action="search-show" data-target="#navbar-search-main">
           <!-- 검색 아이콘 -->
           <i class="ni ni-zoom-split-in"></i>
         </a>
@@ -49,7 +49,7 @@
                      title-tag="a"
                      title-classes="nav-link pr-0"
       >
-        <a href="#" class="nav-link pr-0" @click.prevent slot="title-container">
+        <a href="#profile" class="nav-link pr-0" @click.prevent slot="title-container">
           <b-media no-body class="align-items-center">
                   <span class="avatar avatar-sm rounded-circle">
                     <img alt="Image placeholder" src="img/theme/team-4.jpg">
@@ -65,7 +65,7 @@
             <h6 class="text-overflow m-0">Welcome!</h6>
           </b-dropdown-header>
 
-          <b-dropdown-item href="#!">
+          <b-dropdown-item href="#/profile">
             <i class="ni ni-single-02"></i>
             <span>My profile</span>
           </b-dropdown-item>
@@ -87,7 +87,7 @@
 
           <div class="dropdown-divider"></div>
 
-          <b-dropdown-item href="#!">
+          <b-dropdown-item href="#/login">
             <i class="ni ni-user-run"></i>
             <span>Logout</span>
           </b-dropdown-item>

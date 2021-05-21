@@ -1,15 +1,15 @@
 <template>
+<div>
     <b-card no-body>
         <!-- Header 제목 & 설정 -->
-        <b-card-header class="border-0 mb-5" id="Header">
+        <b-card-header class="border-0 mb-2" id="Header">
             <!-- 제목 -->
             <span id="title">Projects</span>
 
             <!-- 설정 -->
-            <b-dropdown right id="setting">
+            <b-dropdown right id="setting" class="mr-5 mb-0">
                 <template v-slot:button-content>
-                    <i class="ni ni-settings-gear-65 mb-0 mt-0"></i>
-                    <span class="nav-link-inner--text d-lg-none">Settings</span>
+                    <i class="ni ni-settings-gear-65"></i>
                 </template>
                 <b-dropdown-item id="show-modal" v-on:click="showModal = true">ADD</b-dropdown-item>
                 <b-dropdown-item href="#">View</b-dropdown-item>
@@ -89,12 +89,11 @@
                 </template>
             </el-table-column>
         </el-table>
-
-        <!-- Add Modal -->
-        <AddPage v-if="showModal" @close="showModal = false">
-        </AddPage>
-   
     </b-card>
+    <!-- Add Modal -->
+    <AddPage v-if="showModal" @close="showModal = false">
+    </AddPage>
+</div>
 </template>
 
 
@@ -151,12 +150,32 @@ export default {
 }
 
 #title {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: bold;
 }
 
 #setting {
     float: right;
+    margin: 0px;
+    padding: 0px;
+    block-size: 0px;
+    inline-size: 0px;
+    width: 0px;
+    height: 0px;
+    border: 0px;
+    box-shadow: 0px;
+
+}
+
+#setting-button {
+    margin: 0px;
+    padding: 0px;
+    block-size: 0px;
+    inline-size: 0px;
+    width: 0px;
+    height: 0px;
+    border: 0px;
+    box-shadow: 0px;
 }
 
 #remove_Button {

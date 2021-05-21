@@ -77,6 +77,20 @@
             >
             </base-input>
 
+            <!-- PassWord Reconfirm Form -->
+            <base-input alternative
+                      class="mb-3"
+                      name="reconfirm"
+                      :rules="{required: true, min: 6, max:20}"
+                      prepend-icon="ni ni-lock-circle-open"
+                      type="password"
+                      placeholder="Reconfirm"
+                      v-model="model.reconfirm"
+                      v-on:keydown="onlyEngNumReconfirm"
+                      v-on:keyup="onlyEngNumReconfirm"
+            >
+            </base-input>
+
             <!-- Department Form -->
             <base-input lternative
                       class="mb-3"
@@ -128,6 +142,7 @@ export default {
         name: '',
         id: '',
         password: '',
+        reconfirm: '',
         department: 'Department'
       }
       
@@ -137,46 +152,58 @@ export default {
     // 서버에 회원가입 요청
     onSubmit() {
       console.log("Register Try");
-      // API: /registerTry
-      axios({
-          method: "POST",
-          url: '/registerTry',
-          data: {
-            "name": this.model.name,
-            "id": this.model.id,
-            "pw": this.model.password,
-            "department": this.model.department
-          }
-      })
-      .then((response) => {
-          console.log("Response Data: " + response.data);
-          // 회원가입 성공 후 로그인 페이지 이동
-          if(response.data == true) {
-            this.$router.replace('login');
-            
-          }
-          
-          // 중복값 경고알림
-          if(response.data == false) {
-            Swal.fire({
-              title: 'Error!',
-              text: '중복되는 값이 존재합니다. \n이름, 아이디, 비밀번호 중에 값을 변경해주세요!',
-              icon: 'error',
-              confirmButtonText: '확인'
-            });
-          }
-          
-      })
-      .catch((error) => {
-          // 회원가입 실패 시 에러출력
-          console.log("Error: " + error);
-      });
 
-      /*/ 새로고침
-      setTimeout(function(){
-        location.reload();
-      },100);
-      */
+      // 비밀번호 재확인 조건
+      if(this.model.password == this.model.reconfirm) {
+        // API: /registerTry
+        axios({
+            method: "POST",
+            url: '/registerTry',
+            data: {
+              "name": this.model.name,
+              "id": this.model.id,
+              "pw": this.model.password,
+              "department": this.model.department
+            }
+        })
+        .then((response) => {
+            console.log("Response Data: " + response.data);
+            // 회원가입 성공 후 로그인 페이지 이동
+            if(response.data == true) {
+              this.$router.replace('login');
+              
+            }
+            
+            // 중복값 경고알림
+            if(response.data == false) {
+              Swal.fire({
+                title: 'Error!',
+                text: '중복되는 값이 존재합니다. \n이름, 아이디, 비밀번호 중에 값을 변경해주세요!',
+                icon: 'error',
+                confirmButtonText: '확인'
+              });
+            }
+            
+        })
+        .catch((error) => {
+            // 회원가입 실패 시 에러출력
+            console.log("Error: " + error);
+        });
+
+        /*/ 새로고침
+        setTimeout(function(){
+          location.reload();
+        },100);
+        */
+      }
+      else {
+        Swal.fire({
+            title: 'Error!',
+            text: '비밀번호가 일치하지 않습니다!',
+            icon: 'error',
+            confirmButtonText: '확인'
+        });
+      }
     },
     // 회원 이름 정규식
     onlyKoreaName(){
@@ -218,6 +245,20 @@ export default {
             confirmButtonText: '확인'
           });
           return this.model.password = this.model.password.slice(0,-1);
+        }
+    },
+    // 회원 Password Refirm 정규식
+    onlyEngNumReconfirm(){
+      console.log("Reconfirm: " + this.model.reconfirm);
+      const reg = /[^a-z0-9]/gi;
+        if(reg.exec(this.model.reconfirm) !== null){
+          Swal.fire({
+            title: 'Error!',
+            text: '영문, 숫자만 입력해주세요. (6자 ~ 15자 이내)',
+            icon: 'error',
+            confirmButtonText: '확인'
+          });
+          return this.model.reconfirm = this.model.reconfirm.slice(0,-1);
         }
     },
     // Submit 정규식
