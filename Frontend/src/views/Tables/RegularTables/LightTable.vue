@@ -2,12 +2,12 @@
 <div>
     <b-card no-body>
         <!-- Header 제목 & 설정 -->
-        <b-card-header class="border-0 mb-2" id="Header">
+        <b-card-header class="border-0" id="Header">
             <!-- 제목 -->
             <span id="title">Projects</span>
 
             <!-- 설정 -->
-            <b-dropdown right id="setting" class="mr-5 mb-0">
+            <b-dropdown right id="setting" class="mr-5 mb-1">
                 <template v-slot:button-content>
                     <i class="ni ni-settings-gear-65"></i>
                 </template>
@@ -19,7 +19,7 @@
 
 
         <!-- Content 테이블 속성 & 크기 -->
-        <el-table class="table-responsive table"
+        <el-table class="table-responsive table mt-4"
                   header-row-class-name="thead-light"
                   v-bind:data="projects">
 

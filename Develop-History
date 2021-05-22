@@ -229,6 +229,10 @@ Template: 라우터 변경 (
     1. 비밀번호 재확인 기능 추가
     2. 프로필 메뉴에서 My Profile / Logout 경로 설정
     3. Projects, Add의 UI개선
+
+- 2021. 05.22. 복붙방지 - [ 복붙방지, UI개선 ] 
+    1. 복붙방지
+    2. Add의 UI개선
    
 
 
