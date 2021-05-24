@@ -9,6 +9,7 @@
   </div>
   
 </template>
+
 <script>
 import MainCalendar from './Projects/MainCalendar.vue'
 

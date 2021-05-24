@@ -17,7 +17,7 @@
             </b-dropdown>
         </b-card-header>
 
-
+        
         <!-- Content 테이블 속성 & 크기 -->
         <el-table class="table-responsive table mt-4"
                   header-row-class-name="thead-light"
@@ -47,13 +47,6 @@
             <el-table-column label="Status"
                              min-width="150px"
                              prop="project_status">
-                             
-                <template slot-scope="row">
-                    <badge class="badge-dot mr-4" type="">
-                        <i :class="`bg-${row.statusType}`"></i>
-                        <span class="status" :class="`text-${row.statusType}`">{{ row.status }}</span>
-                    </badge>
-                </template>
             </el-table-column>
 
 
@@ -66,14 +59,13 @@
             <el-table-column label="Completion"
                              min-width="240px"
                              prop="project_completion" >
-                <!-- <template v-slot="projects">
-                    <div class="d-flex align-items-center">
-                        <span class="completion mr-2">{{ projects.completion }}%</span>
-                        <div>
-                            <base-progress :type="projects.statusType" :value="projects.completion"/>
-                        </div>
-                    </div>
-                </template> -->
+                <div class="progress-wrapper">
+                    <base-progress type="success"
+                                   value="60"
+                                   size="lg">
+                                   60%
+                    </base-progress>
+                </div>
             </el-table-column>
 
 
@@ -83,12 +75,13 @@
                              prop="delete" >
                 <!-- 내용 -->
                 <template slot-scope="test">
-                    <base-button size="sm" outline type="default" id="remove_Button" v-on:click.native.prevent="deleteRow(test.$index, projects)">
+                    <base-button native-type="submit" size="sm" outline type="default" id="remove_Btn" v-on:click.native.prevent="deleteRow(test.$index, projects)">
                         <i class="ni ni-fat-remove" id="remove"></i>
                     </base-button>
                 </template>
             </el-table-column>
         </el-table>
+
     </b-card>
     <!-- Add Modal -->
     <AddPage v-if="showModal" @close="showModal = false">
@@ -104,18 +97,28 @@ import { Table, TableColumn } from 'element-ui';
 import BaseCheckbox from '../../../components/Inputs/BaseCheckbox.vue';
 import BaseButton from '../../../components/BaseButton.vue';
 import AddPage from "../Modal/AddPage.vue";
+import axios from 'axios'
+import Swal from 'sweetalert2'
 import Vue from 'vue';
 import Vuex from 'vuex';
 import createPersistedState from "vuex-persistedstate";
 Vue.use(Vuex); 
 
 // Vuex의 관리포인트 - Store: (state[상태 Data], mutations[상태변경-동기], actions[상태변경요청-비동기], getter[상태업로드])
-new Vuex.Store({
+const store = new Vuex.Store({
     // 쿠키나 저장소를 활용하지 않아도 되도록, Vuex의 데이터를 자동으로 저장소에 저장해주는 플러그인
     plugins: [
       createPersistedState()
-    ]
+    ],
+    // 동적인 상태의 데이터 및 함수 (commit호출)
+    mutations: {
+      setProjects(state, payload) {
+        console.log("Set Projects Now... (Title) ");
+        state.projects = payload.projects;
+      }
+    }
 });
+
 
 export default {
     // 사용시 태그 이름: <light-table />
@@ -128,18 +131,52 @@ export default {
         [TableColumn.name]: TableColumn
     },
     data() {
-      return {
-        currentPage: 1,
-        showModal: false,
-        projects: this.$store.state.projects
-      }
+        console.log("data");
+        return {
+            currentPage: 1,
+            showModal: false,
+            projects: this.$store.state.projects
+        }
     },
     methods: {
         deleteRow(index, rows) {
+            // 데이터베이스 데이터 삭제
+            axios({
+                method: "DELETE",
+                url: '/deleteProject',
+                data: {
+                    "index": this.$store.state.projects[index].project_index
+                } 
+            })
+            .then((response) => {
+                console.log("삭제여부: " + response.data);
+                Swal.fire({
+                    title: 'success!',
+                    text: '삭제되었습니다.',
+                    icon: 'success',
+                    confirmButtonText: '확인'
+                });
+            })
+            .catch((error) => {
+                console.log("Error: " + error);
+            });
+
+            // 테이블 데이터 삭제
             rows.splice(index, 1);
+            var temp = this.$store.state.projects
+            
+            // Vuex 데이터 삭제
+            console.log("before: " + temp[index]);
+            temp.splice(index, 0);
+
+            console.log("after: " + temp[index]);
+            store.commit('setProjects', {
+                projects: temp
+            });
         }
     }
 }
+
 </script>
 
 
@@ -164,7 +201,9 @@ export default {
     height: 0px;
     border: 0px;
     box-shadow: 0px;
-
+    background-color: white;
+    border: 0px solid white;
+    box-shadow: none;
 }
 
 #setting-button {
@@ -178,13 +217,20 @@ export default {
     box-shadow: 0px;
 }
 
-#remove_Button {
+#remove_Btn {
     border-style: none;
     margin-left: 0.8rem;
 }
 
 #remove {
     font-size: 1rem;
+}
 
+.el-table .warning-row {
+    background: oldlace;
+}
+
+  .el-table .success-row {
+    background: #f0f9eb;
 }
 </style>

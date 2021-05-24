@@ -6,7 +6,7 @@ var mysql = require('mysql');
 
 // MySQL 접속 옵션 설정 //
 var connection = mysql.createConnection({
-    host: '127.0.0.1',
+    host: '192.168.0.12',
     port: 3306,
     user: 'root',
     password: '1234',

@@ -163,7 +163,10 @@ export default {
               store.commit('setProjects', {
                 projects: response.data
               });
-              
+
+              // 새로고침
+              location.reload();
+
             }).catch((error) => {
               console.log("Error: " + error);
 

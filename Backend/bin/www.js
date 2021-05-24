@@ -5,16 +5,15 @@ var http = require('http');
 
 /* 포트, 아이피, URL주소 생성 및 적용 */
 var port = normalizePort(process.env.PORT || '3000');
-var ip = "127.0.0.1";
+var ip = "192.168.0.12";
 var url = "http://" + ip + ":" + port + "/#/";
 app.set('port', port);
-app.set()
 
 /* Express 서버 생성 */
 var server = http.createServer(app);
 
 /* Express서버를 포트 3000으로 실행하며, 에러가 발생하면 onError함수를 실행하고 서버에 접속하면 onListening함수를 실행 */
-server.listen(port, '127.0.0.1', () => {
+server.listen(port, ip, () => {
     // 서버 옵션
     console.log("Server Port: " + port + ", IP: " + ip + ", URL: " + url);
 

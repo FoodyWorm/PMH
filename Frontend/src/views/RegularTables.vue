@@ -24,7 +24,6 @@
   import { Dropdown, DropdownItem, DropdownMenu, Table, TableColumn } from 'element-ui';
   import projects from './Tables/projects'
   import LightTable from "./Tables/RegularTables/LightTable";
-  
 
   export default {
     components: {
