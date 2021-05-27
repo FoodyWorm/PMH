@@ -1,13 +1,13 @@
 <template>
 <div>
-    <b-card no-body>
+    <b-card no-body id="main_div">
         <!-- Header 제목 & 설정 -->
         <b-card-header class="border-0" id="Header">
             <!-- 제목 -->
             <span id="title">Projects</span>
 
             <!-- 설정 -->
-            <b-dropdown right id="setting" class="mr-5 mb-1">
+            <b-dropdown right id="setting" class="mr-5">
                 <template v-slot:button-content>
                     <i class="ni ni-settings-gear-65"></i>
                 </template>
@@ -19,7 +19,7 @@
 
         
         <!-- Content 테이블 속성 & 크기 -->
-        <el-table class="table-responsive table mt-4"
+        <el-table class="table-responsive table mt-5"
                   header-row-class-name="thead-light"
                   v-bind:data="projects">
 
@@ -29,7 +29,7 @@
                              prop="check" >
                 <!-- 내용 -->
                 <template>
-                    <div class="d-flex align-items-center ml-2">
+                    <div class="d-flex align-items-center">
                        <base-checkbox></base-checkbox>
                     </div>
                 </template>
@@ -39,33 +39,43 @@
             <el-table-column label="Project Title"
                              prop="project_title"
                              min-width="310px"
-                             >
+                             v-slot="{row}">
+                             {{ row.project_title }}
             </el-table-column>
 
 
             <!-- 테이블 컬럼 (Status) -->
             <el-table-column label="Status"
                              min-width="150px"
-                             prop="project_status">
+                             prop="project_status"
+                             v-slot="{row}">
+                             <badge class="badge-dot mr-4" type="">
+                                <i :class="`bg-${row.project_statusType}`"></i>
+                                <span class="status" :class="`text-${row.project_statusType}`">{{ row.project_status }}</span>
+                             </badge>
             </el-table-column>
 
 
             <!-- 테이블 컬럼 (Users) -->
-            <el-table-column label="Users" min-width="120px" prop="project_users">
+            <el-table-column label="Users"
+                             min-width="120px"
+                             prop="project_users"
+                             v-slot="{row}">
+                             {{ row.project_users }}
             </el-table-column>
 
 
             <!-- 테이블 컬럼 (Completion) -->
             <el-table-column label="Completion"
                              min-width="240px"
-                             prop="project_completion" >
-                <div class="progress-wrapper">
-                    <base-progress type="success"
-                                   value="60"
-                                   size="lg">
-                                   60%
-                    </base-progress>
-                </div>
+                             prop="project_completion"
+                             v-slot="{row}">
+                             <div class="d-flex align-items-center">
+                                <div>
+                                    <base-progress :type="row.project_statusType" :value="row.project_completion"/>
+                                </div>
+                                <span class="completion ml-2">{{ row.project_completion }}%</span>
+                             </div>
             </el-table-column>
 
 
@@ -181,6 +191,9 @@ export default {
 
 
 <style scoped>
+#main_div {
+    padding-top: 0.5rem;
+}
 #Header {
     display: inline;
     block-size: 0%;
@@ -201,7 +214,7 @@ export default {
     height: 0px;
     border: 0px;
     box-shadow: 0px;
-    background-color: white;
+    background-color: rgb(165, 67, 67);
     border: 0px solid white;
     box-shadow: none;
 }

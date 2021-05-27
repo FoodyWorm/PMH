@@ -241,6 +241,11 @@ Template: 라우터 변경 (
     2. Element-UI를 사용한 템플릿을 활용하여, Status와 Completion을 예쁘게 보이려 했지만 실패 (시간 관계상 포기)
     3. Vuex에서도 프로젝트가 삭제되도록 함
     4. 데이터베이스에서도 프로젝트가 삭제되도록 함
+
+
+- 2021. 05.27. 프로젝트 Add UI 및 기능 개선 - [ 프로젝트 Add UI 및 기능 개선 ] 
+    1. 프로젝트 Add의 Header위치를 개선함
+    2. 프로젝트 Add의 Status, Completion 기능을 개선함
    
 
 
