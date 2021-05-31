@@ -26,13 +26,14 @@
             <!-- 테이블 컬럼 (Check) -->
             <el-table-column label="Check"
                              min-width="110px"
-                             prop="check" >
+                             prop="check">
                 <!-- 내용 -->
-                <template>
-                    <div class="d-flex align-items-center">
-                       <base-checkbox></base-checkbox>
-                    </div>
-                </template>
+                <div class="d-flex align-items-center">
+                    <input type="checkbox" name="xxx" value="yyy" class="checked">
+                </div>
+                <div class="mt-3">
+                    Checked: <strong>{{ checked }}</strong><br>
+                </div>
             </el-table-column>
 
             <!-- 테이블 컬럼 (Project Title) -->
@@ -40,7 +41,7 @@
                              prop="project_title"
                              min-width="310px"
                              v-slot="{row}">
-                             {{ row.project_title }}
+                             <span class="title">{{ row.project_title }}</span>
             </el-table-column>
 
 
@@ -129,7 +130,6 @@ const store = new Vuex.Store({
     }
 });
 
-
 export default {
     // 사용시 태그 이름: <light-table />
     name: 'light-table',
@@ -145,11 +145,16 @@ export default {
         return {
             currentPage: 1,
             showModal: false,
-            projects: this.$store.state.projects
+            projects: this.$store.state.projects,
+            checked: false
         }
     },
     methods: {
+        checked() {
+            console.log("checked");
+        },
         deleteRow(index, rows) {
+
             // 데이터베이스 데이터 삭제
             axios({
                 method: "DELETE",
@@ -186,7 +191,6 @@ export default {
         }
     }
 }
-
 </script>
 
 
@@ -243,7 +247,11 @@ export default {
     background: oldlace;
 }
 
-  .el-table .success-row {
+.el-table .success-row {
     background: #f0f9eb;
+}
+
+.title {
+    text-decoration: line-through;
 }
 </style>
