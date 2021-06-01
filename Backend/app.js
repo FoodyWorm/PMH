@@ -11,6 +11,7 @@ var registerRouter = require('./routes/register');
 var projectAddRouter = require('./routes/projcetAdd');
 var projectGetRouter = require('./routes/projectGet');
 var deleteProjectRouter = require('./routes/projcetDelete');
+var checkProjectRouter = require('./routes/checkProject');
 
 // express 모듈을 app에 적용 //
 var app = express();
@@ -30,6 +31,7 @@ app.use('/registerTry', registerRouter);
 app.use('/projectAddTry', projectAddRouter);
 app.use('/projectGetTry', projectGetRouter);
 app.use('/deleteProject', deleteProjectRouter);
+app.use('/checkProjectTry', checkProjectRouter);
 
 // 모든, 폴더에서 이 기능들이 적용 될 수 있도록 적용 //
 module.exports = app;

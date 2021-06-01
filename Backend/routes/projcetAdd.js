@@ -31,7 +31,7 @@ router.post('/', (req, res, next) => {
 
         // 입력받은 데이터 값을 데이터베이스에 저장 //
         // 쿼리 명령문 (Insert) 
-        const insert_Query = "Insert Into projects (project_index, project_title, project_department, project_users, project_startDay, project_endDay, project_purpose, project_status, project_statusType, project_completion) VALUES (0,'" + 
+        const insert_Query = "Insert Into projects (project_index, project_check, project_title, project_department, project_users, project_startDay, project_endDay, project_purpose, project_status, project_statusType, project_completion) VALUES (0," + 0 + ",'" + 
         req.body.title + "', '" + req.body.department + "', '" + req.body.users + "', '" + req.body.startDay + "', '" + req.body.endDay + "', '" + req.body.purpose + "', 'on schedule', 'info','" + 0 + "')";
 
         // projects 테이블의 데이터 값을 가져와 저장, 쿼리 명령문 실행. //

@@ -125,8 +125,31 @@
 /*   JavaScript   */
 import axios from 'axios'
 import Swal from 'sweetalert2'
+import Vue from 'vue'
+import Vuex from 'vuex'
+import createPersistedState from "vuex-persistedstate";
 import flatPicker from "vue-flatpickr-component";
 import "flatpickr/dist/flatpickr.css";
+Vue.use(Vuex);
+
+
+// Vuex에 데이터 저장
+const store = new Vuex.Store({
+    // 쿠키나 저장소를 활용하지 않아도 되도록, Vuex의 데이터를 자동으로 저장소에 저장해주는 플러그인
+    plugins: [
+      createPersistedState()
+    ],
+    state: {
+      projects: null
+    },
+    // 동적인 상태의 데이터 및 함수 (commit호출)
+    mutations: {
+      setProjects(state, payload) {
+        console.log("Set Projects Now... (Title) " + payload.projects[0].project_title);
+        state.projects = payload.projects;
+      }
+    }
+});
 
 export default {
   components: {flatPicker},
@@ -162,6 +185,25 @@ export default {
           console.log("Response Data: " + response.data);
           // 프로젝트 추가 성공 후 페이지 종료
           if(response.data == true) {
+            // Get Projects
+            axios({
+              method: "get",
+              url: '/projectGetTry'
+              
+            }).then((response) => {
+              // Todo Save - Vuex
+              console.log("Get Projects: " + response.data);
+              console.log("Set Projects to Vuex...");
+
+              // Vuex에 데이터 커밋
+              store.commit('setProjects', {
+                projects: response.data
+              });
+
+            }).catch((error) => {
+              console.log("Error: " + error);
+            });
+
             // 성공알림
             Swal.fire({
               title: 'Successful!',
@@ -196,8 +238,6 @@ export default {
           console.log("Error: " + error);
       });
     },
-
-    
 
     // 프로젝트 제목 정규식
     onlyTitle(){

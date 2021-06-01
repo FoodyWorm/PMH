@@ -5,7 +5,7 @@
         <b-card-header class="border-0" id="Header">
             <!-- 제목 -->
             <span id="title">Projects</span>
-
+         
             <!-- 설정 -->
             <b-dropdown right id="setting" class="mr-5">
                 <template v-slot:button-content>
@@ -26,14 +26,20 @@
             <!-- 테이블 컬럼 (Check) -->
             <el-table-column label="Check"
                              min-width="110px"
-                             prop="check">
-                <!-- 내용 -->
-                <div class="d-flex align-items-center">
-                    <input type="checkbox" name="xxx" value="yyy" class="checked">
-                </div>
-                <div class="mt-3">
-                    Checked: <strong>{{ checked }}</strong><br>
-                </div>
+                             prop="project_check"
+                             v-slot="{row}">
+                <!-- 내용 
+                <div class="ml-1">
+                    <input class="ml-2" name="checkBox" type="checkbox" v-on:click="checkSubmit(row.$index, projects)" />
+                </div>-->
+
+                <!-- 내용  name="checkBox" v-on:click.native.prevent="checkSubmit(checked.$index, projects)"-->
+                <template class="ml-2">
+                    <base-checkbox name="checkBox" size="sm" outline type="default">
+                    </base-checkbox>
+                    <span v-if="false">{{ row.project_check }}</span>
+                </template>
+                
             </el-table-column>
 
             <!-- 테이블 컬럼 (Project Title) -->
@@ -85,8 +91,8 @@
                              min-width="120px"
                              prop="delete" >
                 <!-- 내용 -->
-                <template slot-scope="test">
-                    <base-button native-type="submit" size="sm" outline type="default" id="remove_Btn" v-on:click.native.prevent="deleteRow(test.$index, projects)">
+                <template slot-scope="deleted" >
+                    <base-button class="ml-1" native-type="submit" size="sm" outline type="default" id="remove_Btn" v-on:click.native.prevent="deleteRow(deleted.$index, projects)">
                         <i class="ni ni-fat-remove" id="remove"></i>
                     </base-button>
                 </template>
@@ -108,8 +114,8 @@ import { Table, TableColumn } from 'element-ui';
 import BaseCheckbox from '../../../components/Inputs/BaseCheckbox.vue';
 import BaseButton from '../../../components/BaseButton.vue';
 import AddPage from "../Modal/AddPage.vue";
-import axios from 'axios'
-import Swal from 'sweetalert2'
+import axios from 'axios';
+import Swal from 'sweetalert2';
 import Vue from 'vue';
 import Vuex from 'vuex';
 import createPersistedState from "vuex-persistedstate";
@@ -130,6 +136,7 @@ const store = new Vuex.Store({
     }
 });
 
+
 export default {
     // 사용시 태그 이름: <light-table />
     name: 'light-table',
@@ -141,17 +148,80 @@ export default {
         [TableColumn.name]: TableColumn
     },
     data() {
-        console.log("data");
         return {
             currentPage: 1,
             showModal: false,
-            projects: this.$store.state.projects,
-            checked: false
+            projects: this.$store.state.projects
         }
     },
     methods: {
-        checked() {
-            console.log("checked");
+        checkSubmit(index, rows) {
+            // CheckSubmit Start - Console()
+            console.log("------------------- Checked -------------------");
+            // 데이터 찾기 //
+            // 데이터 확인
+            console.log("index: " + index);
+            console.log("rows: " + rows);
+
+            /*/ 배열일 경우
+            console.log("Value.length: " + value.length);
+            for(var i=0; i<value.length; i++) {
+                console.log("Value[" + i + "]:" + value[i]);
+            }*/
+
+            /*/ 객체일 경우
+            console.log("Value.childNodes: " + value.childNodes);
+            for(var i=0; i<value.childNodes; i++) {
+                console.log("Value.childNodes[" + i + "]:" + value.childNodes[i]);
+            }*/
+            
+
+            // 체크값 저장하기 시도 //
+            console.log("Project_Checked: " + "Finding..." );
+            console.log("Project_Index: " + "Finding...");
+            // API: /checkProjectTry
+            axios({
+                method: "PUT",
+                url: '/checkProjectTry',
+                data: {
+                    "project_checked": 1,
+                    "project_index": 1
+                }
+            })
+            .then((response) => {
+                console.log("---------------- CheckTry(PUT) ----------------");
+                console.log("Response Data: " + response.data);
+                /*/ 프로젝트 체크 성공 후 페이지 종료
+                if(response.data == true) {
+                    // Get Projects
+                    axios({
+                        method: "get",
+                        url: '/projectGetTry'
+                    
+                    }).then((response) => {
+                        // Todo Save - Vuex
+                        console.log("Get Projects: " + response.data);
+                        console.log("Set Projects to Vuex...");
+
+                        // Vuex에 데이터 커밋
+                        store.commit('setProjects', {
+                            projects: response.data
+                    });
+
+                    }).catch((error) => {
+                    console.log("Error: " + error);
+                    }); 
+                }*/
+                console.log("-----------------------------------------------");
+                console.log(" ");
+            })
+            .catch((error) => {
+                // 프로젝트 추가 실패 시 에러출력
+                console.log("Error: " + error);
+            });
+    
+            // CheckSubmit End - Console()
+            console.log("-----------------------------------------------");
         },
         deleteRow(index, rows) {
 
@@ -189,6 +259,48 @@ export default {
                 projects: temp
             });
         }
+    },
+    mounted() {
+        // 모든 화면이 렌더링된 후 실행합니다.
+        this.$nextTick(function () {
+            // Mounted Start - Console()
+            console.log("------------------- Mounted -------------------");
+
+            // Table - project_check
+            var checkBox = document.getElementsByName('checkBox');
+            console.log("Checkbox: " + checkBox);
+            console.log("Chekcbox.length: " + checkBox.length);
+
+            // Before CheckBox
+            for(var i=0; i<checkBox.length; i++) {
+                console.log("Before CheckBox[" + i + "]: " + checkBox[i].checked);
+            }
+
+            // Change CheckBox
+            for(var i=0; i<checkBox.length; i++) {
+                    if(this.$store.state.projects[i].project_check == 0) {
+                        // Check False
+                        console.log("Change False[" + i +"]");
+                        checkBox[i].checked = false;
+                        
+                    }
+                    
+                    if(this.$store.state.projects[i].project_check == 1) {
+                        // Check True
+                        console.log("Change True[" + i +"]");
+                        checkBox[i].checked = true;
+                    }
+            }
+
+            // After CheckBox
+            for(var i=0; i<checkBox.length; i++) {
+                console.log("After CheckBox[" + i + "]: " + checkBox[i].checked);
+            }
+
+            // Mounted End - Console()
+            console.log("-----------------------------------------------");
+            console.log(" ");
+        });
     }
 }
 </script>
@@ -198,6 +310,7 @@ export default {
 #main_div {
     padding-top: 0.5rem;
 }
+
 #Header {
     display: inline;
     block-size: 0%;
@@ -236,7 +349,7 @@ export default {
 
 #remove_Btn {
     border-style: none;
-    margin-left: 0.8rem;
+    margin-left: 0.5rem;
 }
 
 #remove {

@@ -187,12 +187,6 @@ export default {
       .catch((error) => {
           console.log("Error: " + error);
       });
-
-      /*/ 새로고침
-      setTimeout(function(){
-      location.reload();
-      },100);
-      */
         
     },
     // 회원 ID 정규식
