@@ -22,25 +22,18 @@
         <el-table class="table-responsive table mt-5"
                   header-row-class-name="thead-light"
                   v-bind:data="projects">
+                  <span>Projects: {{ projects }}</span>
 
             <!-- 테이블 컬럼 (Check) -->
             <el-table-column label="Check"
                              min-width="110px"
                              prop="project_check"
-                             v-slot="{row}">
-                <!-- 내용 
+                             v-slot:default="{row}">
                 <div class="ml-1">
-                    <input class="ml-2" name="checkBox" type="checkbox" v-on:click="checkSubmit(row.$index, projects)" />
-                </div>-->
-
-                <!-- 내용  name="checkBox" v-on:click.native.prevent="checkSubmit(checked.$index, projects)"-->
-                <template class="ml-2">
-                    <base-checkbox name="checkBox" size="sm" outline type="default">
-                    </base-checkbox>
-                    <span v-if="false">{{ row.project_check }}</span>
-                </template>
-                
-            </el-table-column>
+                    <input class="ml-2" name="checkBox" type="checkbox" v-on:click="checkSubmit(row.project_check, row.project_index)" />
+                    <span v-if="true">{{ row.project_check }}</span>
+                </div>
+             </el-table-column>
 
             <!-- 테이블 컬럼 (Project Title) -->
             <el-table-column label="Project Title"
@@ -91,7 +84,7 @@
                              min-width="120px"
                              prop="delete" >
                 <!-- 내용 -->
-                <template slot-scope="deleted" >
+                <template slot-scope="deleted">
                     <base-button class="ml-1" native-type="submit" size="sm" outline type="default" id="remove_Btn" v-on:click.native.prevent="deleteRow(deleted.$index, projects)">
                         <i class="ni ni-fat-remove" id="remove"></i>
                     </base-button>
@@ -155,43 +148,30 @@ export default {
         }
     },
     methods: {
-        checkSubmit(index, rows) {
-            // CheckSubmit Start - Console()
+        checkSubmit(checked, index) {
+            // CheckSubmit Start - Console() //
             console.log("------------------- Checked -------------------");
-            // 데이터 찾기 //
             // 데이터 확인
+            var temp_Checked = checked == 0? (1) : (0);
+            console.log("before checked: " + checked);
+            console.log("After checked: " + temp_Checked);
             console.log("index: " + index);
-            console.log("rows: " + rows);
-
-            /*/ 배열일 경우
-            console.log("Value.length: " + value.length);
-            for(var i=0; i<value.length; i++) {
-                console.log("Value[" + i + "]:" + value[i]);
-            }*/
-
-            /*/ 객체일 경우
-            console.log("Value.childNodes: " + value.childNodes);
-            for(var i=0; i<value.childNodes; i++) {
-                console.log("Value.childNodes[" + i + "]:" + value.childNodes[i]);
-            }*/
-            
 
             // 체크값 저장하기 시도 //
-            console.log("Project_Checked: " + "Finding..." );
-            console.log("Project_Index: " + "Finding...");
+            console.log("/checkProjectTry...");
             // API: /checkProjectTry
             axios({
                 method: "PUT",
                 url: '/checkProjectTry',
                 data: {
-                    "project_checked": 1,
-                    "project_index": 1
+                    "project_checked": temp_Checked,
+                    "project_index": index
                 }
             })
             .then((response) => {
                 console.log("---------------- CheckTry(PUT) ----------------");
                 console.log("Response Data: " + response.data);
-                /*/ 프로젝트 체크 성공 후 페이지 종료
+                // 프로젝트 체크 성공 후 페이지 새로고침
                 if(response.data == true) {
                     // Get Projects
                     axios({
@@ -206,12 +186,17 @@ export default {
                         // Vuex에 데이터 커밋
                         store.commit('setProjects', {
                             projects: response.data
-                    });
+                        });
+
+                        //새로고침
+                        setTimeout(function(){
+                           location.reload();
+                        },1);
 
                     }).catch((error) => {
-                    console.log("Error: " + error);
+                        console.log("Error: " + error);
                     }); 
-                }*/
+                }
                 console.log("-----------------------------------------------");
                 console.log(" ");
             })
@@ -265,6 +250,7 @@ export default {
         this.$nextTick(function () {
             // Mounted Start - Console()
             console.log("------------------- Mounted -------------------");
+            console.log("Projects: " + this.$store.state.projects);
 
             // Table - project_check
             var checkBox = document.getElementsByName('checkBox');

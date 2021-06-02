@@ -36,7 +36,6 @@ DESC projects;
 SELECT * FROM users;
 SELECT * FROM projects;
 
-/* Drop Table */
 DROP TABLE users;
 DROP TABLE projects;
 

@@ -25,7 +25,6 @@ router.post('/', function(req, res, next) {
         console.log('Login Try');
         console.log('Request ID: ' + req.body.id + ', Request PW: ' + req.body.pw);
 
-
         // 비교할 데이터베이스의 데이터 값 //
         // 쿼리 명령문 (Select)
         const select_Query = "Select user_id, user_pw From users";
