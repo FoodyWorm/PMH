@@ -18,7 +18,7 @@
         </b-card-header>
 
         <!-- Content 테이블 속성 & 크기 -->
-        <el-table class="table-responsive table mt-4 pt-1"
+        <el-table class="table mt-4 pt-1"
                   header-row-class-name="thead-light"
                   v-bind:data="projects">
                   <span>Projects: {{ projects }}</span>
@@ -29,7 +29,7 @@
                              prop="project_check"
                              v-slot:default="{row}">
                 <div class="ml-1">
-                    <input class="checkBox ml-1" name="checkBox" type="checkbox" v-on:click="checkSubmit(row.project_check, row.project_index)" />
+                    <input class="checkBox ml-1" name="checkBox" type="checkbox" v-on:click="checkSubmit(row.project_check, row.project_index, row.project_status, row.project_statusType, row.project_completion)" />
                     <span v-if="true">{{ row.project_check }}</span>
                 </div>
              </el-table-column>
@@ -66,7 +66,8 @@
 
 
             <!-- 테이블 컬럼 (Completion) -->
-            <el-table-column label="Completion"
+            <el-table-column class="d-none d-lg-inline-block"
+                             label="Completion"
                              min-width="240px"
                              prop="project_completion"
                              v-slot="{row}">
@@ -77,7 +78,6 @@
                                 <span class="completion ml-2">{{ row.project_completion }}%</span>
                              </div>
             </el-table-column>
-
 
             <!-- 테이블 컬럼  (Delete) -->
             <el-table-column label="Delete"
@@ -148,13 +148,20 @@ export default {
         }
     },
     methods: {
-        checkSubmit(checked, index) {
+        checkSubmit(checked, index, status, statusType, completion) {
             // CheckSubmit Start - Console() //
             console.log("------------------- Checked -------------------");
             // 데이터 확인
             var temp_Checked = checked == 0? (1) : (0);
-            console.log("before checked: " + checked);
-            console.log("After checked: " + temp_Checked);
+            var temp_Status = status == ("on schedule" || "delayed")? ("completed") : ("on schedule");
+            var temp_StatusType = statusType == ("info" || "danger")? ("success") : ("info");
+            var temp_Completion = completion == 0? (100) : (0);
+            console.log("--- Type Test --- \n" + "Status_Type: " + typeof(status) + ", String_Type: " + typeof("test"));
+            
+            console.log("checked: " + temp_Checked);
+            console.log("status: " + temp_Status);
+            console.log("statusType: " + temp_StatusType);
+            console.log("completion: " + temp_Completion);
             console.log("index: " + index);
 
             // 체크값 저장하기 시도 //
@@ -165,6 +172,9 @@ export default {
                 url: '/checkProjectTry',
                 data: {
                     "project_checked": temp_Checked,
+                    "project_status": temp_Status,
+                    "project_statusType": temp_StatusType,
+                    "project_completion": temp_Completion,
                     "project_index": index
                 }
             })
@@ -361,6 +371,4 @@ export default {
 .el-table .success-row {
     background: #f0f9eb;
 }
-
-
 </style>

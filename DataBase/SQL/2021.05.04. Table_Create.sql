@@ -44,12 +44,15 @@ INSERT INTO users (user_index, user_id, user_pw, user_name, user_department, use
 
 /* Test Project 1: delayed - danger*/
 INSERT INTO projects (project_index, project_check, project_title, project_department, project_users, project_startDay, project_endDay, project_purpose, project_status, project_statusType, project_completion) VALUES (
-	0, 0, 'Project Management HomePage', '스마트팜', '김장은', '2021-05-01', '2021-05-14', '사내 업무 효율을 최대로 증진시키기 위한 홈페이지를 제작합니다.', 'delayed', 'danger', 76
+	0, 0, 'Project Management HomePage', '스마트팜', '김장은', '2021-05-01', '2021-05-14', '사내 업무 효율을 최대로 증진시키기 위한 홈페이지를 제작합니다.', 'delayed', 'danger', 0
+);
+INSERT INTO projects (project_index, project_check, project_title, project_department, project_users, project_startDay, project_endDay, project_purpose, project_status, project_statusType, project_completion) VALUES (
+	0, 0, 'Project Management HomePage', '스마트팜', '김장은', '2021-05-01', '2021-05-14', '사내 업무 효율을 최대로 증진시키기 위한 홈페이지를 제작합니다.', 'on schedule', 'info', 0
 );
 
 /* Test Project 2: on schedule - info  */
 INSERT INTO projects (project_index, project_check, project_title, project_department, project_users, project_startDay, project_endDay, project_purpose, project_status, project_statusType, project_completion) VALUES (
-	0, 0, '열선난방장치 프로젝트', '스마트팜', '김장은', '2021-05-01', '2021-06-30', '스마트팜의 세밀한 온도조절을 위해서 개발중인 장치입니다.', 'on schedule', 'info', 36
+	0, 0, '열선난방장치 프로젝트', '스마트팜', '김장은', '2021-05-01', '2021-06-30', '스마트팜의 세밀한 온도조절을 위해서 개발중인 장치입니다.', 'on schedule', 'info', 0
 );
 
 /* Test Project 3: completed - success  */
@@ -60,4 +63,8 @@ INSERT INTO projects (project_index, project_check, project_title, project_depar
 /* Test Update 1: project_check (0, 1) */
 UPDATE projects SET project_check=0 WHERE project_index=1;
 UPDATE projects SET project_check=1 WHERE project_index=1; 
+
+/* Test Update 2: project_check(All) */
+UPDATE projects SET project_check=1, project_status='completed', project_statusType='success', project_completion=100 WHERE project_index=1;
+UPDATE projects SET project_check=1, project_status='completed', project_statusType='success', project_completion=100 WHERE project_index=2;
 
