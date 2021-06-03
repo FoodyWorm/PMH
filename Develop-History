@@ -266,6 +266,12 @@ Template: 라우터 변경 (
     2. checked값과 index값에 따른 체크 유지 기능
     3. 데이터(Projects)흐름 수정 – db, vuex, table...
 
+
+- 2021. 06.03. 프로젝트 체크기능(67%) - [ Check:0,1 - Project_Title: Middle Line ] 
+    1. /Add 페이지의 텍스트 크기 및 위치 조정
+    2. 체크박스 True/False에 따른, 프로젝트 타이틀 취소선 존재여부 기능
+
+
    
    
 

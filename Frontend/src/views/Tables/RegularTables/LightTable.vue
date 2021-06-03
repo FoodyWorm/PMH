@@ -4,10 +4,10 @@
         <!-- Header 제목 & 설정 -->
         <b-card-header class="border-0" id="Header">
             <!-- 제목 -->
-            <span id="title">Projects</span>
+            <span id="table_Label">Projects</span>
          
             <!-- 설정 -->
-            <b-dropdown right id="setting" class="mr-5">
+            <b-dropdown right size="sm" text="Small" id="setting" class="mr-5">
                 <template v-slot:button-content>
                     <i class="ni ni-settings-gear-65"></i>
                 </template>
@@ -17,9 +17,8 @@
             </b-dropdown>
         </b-card-header>
 
-        
         <!-- Content 테이블 속성 & 크기 -->
-        <el-table class="table-responsive table mt-5"
+        <el-table class="table-responsive table mt-4 pt-1"
                   header-row-class-name="thead-light"
                   v-bind:data="projects">
                   <span>Projects: {{ projects }}</span>
@@ -30,17 +29,18 @@
                              prop="project_check"
                              v-slot:default="{row}">
                 <div class="ml-1">
-                    <input class="ml-2" name="checkBox" type="checkbox" v-on:click="checkSubmit(row.project_check, row.project_index)" />
+                    <input class="checkBox ml-1" name="checkBox" type="checkbox" v-on:click="checkSubmit(row.project_check, row.project_index)" />
                     <span v-if="true">{{ row.project_check }}</span>
                 </div>
              </el-table-column>
+
 
             <!-- 테이블 컬럼 (Project Title) -->
             <el-table-column label="Project Title"
                              prop="project_title"
                              min-width="310px"
                              v-slot="{row}">
-                             <span class="title">{{ row.project_title }}</span>
+                             <span class="title" v-bind:style="row.project_check == 1 ? {'text-decoration': 'line-through'} : {'text-decoration': 'none'}">{{ row.project_title }}</span>
             </el-table-column>
 
 
@@ -85,8 +85,8 @@
                              prop="delete" >
                 <!-- 내용 -->
                 <template slot-scope="deleted">
-                    <base-button class="ml-1" native-type="submit" size="sm" outline type="default" id="remove_Btn" v-on:click.native.prevent="deleteRow(deleted.$index, projects)">
-                        <i class="ni ni-fat-remove" id="remove"></i>
+                    <base-button class="ml-2" native-type="submit" size="sm" outline type="default" id="remove_Btn" v-on:click.native.prevent="deleteRow(deleted.$index, projects)">
+                        <i class="ni ni-fat-remove ml-1" id="remove"></i>
                     </base-button>
                 </template>
             </el-table-column>
@@ -191,8 +191,7 @@ export default {
                         //새로고침
                         setTimeout(function(){
                            location.reload();
-                        },1);
-
+                        },0.1);
                     }).catch((error) => {
                         console.log("Error: " + error);
                     }); 
@@ -209,7 +208,6 @@ export default {
             console.log("-----------------------------------------------");
         },
         deleteRow(index, rows) {
-
             // 데이터베이스 데이터 삭제
             axios({
                 method: "DELETE",
@@ -302,9 +300,21 @@ export default {
     block-size: 0%;
 }
 
-#title {
+#table_Label {
+    margin: 0px;
+    padding: 0px;
     font-size: 1.2rem;
     font-weight: bold;
+}
+
+.checkBox {
+    width: 1rem;
+    height: 1rem;
+}
+
+.title {
+    font-size: 0.9rem;
+    /* text-decoration: line-through; */
 }
 
 #setting {
@@ -335,11 +345,13 @@ export default {
 
 #remove_Btn {
     border-style: none;
-    margin-left: 0.5rem;
+    margin-left: 1.2rem;
+    padding: 0px;
 }
 
 #remove {
-    font-size: 1rem;
+    font-size: 1.2rem;
+    
 }
 
 .el-table .warning-row {
@@ -350,7 +362,5 @@ export default {
     background: #f0f9eb;
 }
 
-.title {
-    text-decoration: line-through;
-}
+
 </style>
