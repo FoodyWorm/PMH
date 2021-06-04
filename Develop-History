@@ -276,12 +276,10 @@ Template: 라우터 변경 (
     1. 체크박스 True/False에 따른, 프로젝트 상태값 변경
 
 
+- 2021.06.04. Day에 따른 Status 변화 (0%) - [ Today > startDay / Today < endDay ] 
+    1. 체크박스 True/False와 Day에 따른 Project Status 변화
+
    
-   
-
-
-
-
 
 
 

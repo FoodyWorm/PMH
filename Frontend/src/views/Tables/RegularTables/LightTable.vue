@@ -29,8 +29,8 @@
                              prop="project_check"
                              v-slot:default="{row}">
                 <div class="ml-1">
-                    <input class="checkBox ml-1" name="checkBox" type="checkbox" v-on:click="checkSubmit(row.project_check, row.project_index, row.project_status, row.project_statusType, row.project_completion)" />
-                    <span v-if="true">{{ row.project_check }}</span>
+                    <input class="checkBox ml-1" name="checkBox" type="checkbox" v-on:click="checkSubmit(row.project_check, row.project_index, row.project_status, row.project_statusType, row.project_completion, row.project_endDay)" />
+                    <span v-if="false">{{ row.project_check }}</span>
                 </div>
              </el-table-column>
 
@@ -40,7 +40,7 @@
                              prop="project_title"
                              min-width="310px"
                              v-slot="{row}">
-                             <span class="title" v-bind:style="row.project_check == 1 ? {'text-decoration': 'line-through'} : {'text-decoration': 'none'}">{{ row.project_title }}</span>
+                             <span class="title" v-bind:style="row.project_check == 1 ? {'text-decoration': 'line-through double'} : {'text-decoration': 'none'}">{{ row.project_title }}</span>
             </el-table-column>
 
 
@@ -129,7 +129,6 @@ const store = new Vuex.Store({
     }
 });
 
-
 export default {
     // 사용시 태그 이름: <light-table />
     name: 'light-table',
@@ -148,13 +147,33 @@ export default {
         }
     },
     methods: {
-        checkSubmit(checked, index, status, statusType, completion) {
+        checkSubmit(checked, index, status, statusType, completion, project_endDay) {
             // CheckSubmit Start - Console() //
             console.log("------------------- Checked -------------------");
             // 데이터 확인
             var temp_Checked = checked == 0? (1) : (0);
-            var temp_Status = status == ("on schedule" || "delayed")? ("completed") : ("on schedule");
-            var temp_StatusType = statusType == ("info" || "danger")? ("success") : ("info");
+            if(status == "on schedule" || status == "delayed") {
+                var temp_Status = "completed";
+                var temp_StatusType = "success";
+            }
+            else {
+                // Get Days (Today, endDay)
+                var today = new Date();
+                var endDay = new Date(project_endDay);
+
+                // Compare Days
+                if(today.getTime() > endDay.getTime()) {
+                    // Project 'delayed / danger'
+                    var temp_Status = "delayed"
+                    var temp_StatusType = "danger"
+                }
+                else {
+                    // Project 'on schedule / info'
+                    var temp_Status = "on schedule"
+                    var temp_StatusType = "info"
+                }
+            }
+           
             var temp_Completion = completion == 0? (100) : (0);
             console.log("--- Type Test --- \n" + "Status_Type: " + typeof(status) + ", String_Type: " + typeof("test"));
             
@@ -256,44 +275,76 @@ export default {
     mounted() {
         // 모든 화면이 렌더링된 후 실행합니다.
         this.$nextTick(function () {
-            // Mounted Start - Console()
-            console.log("------------------- Mounted -------------------");
-            console.log("Projects: " + this.$store.state.projects);
+            // Mounted Start - Console() //
+            // Projects
+            var vuex_Projects = this.$store.state.projects;
+            console.log("Projects: " + vuex_Projects);
+
 
             // Table - project_check
-            var checkBox = document.getElementsByName('checkBox');
-            console.log("Checkbox: " + checkBox);
-            console.log("Chekcbox.length: " + checkBox.length);
+            console.log("----------------- Project Check  -----------------");
+                var checkBox = document.getElementsByName('checkBox');
+                console.log("Checkbox: " + checkBox);
+                console.log("Chekcbox.length: " + checkBox.length);
 
-            // Before CheckBox
-            for(var i=0; i<checkBox.length; i++) {
-                console.log("Before CheckBox[" + i + "]: " + checkBox[i].checked);
-            }
+                // Before CheckBox
+                for(var i=0; i<checkBox.length; i++) {
+                    console.log("Before CheckBox[" + i + "]: " + checkBox[i].checked);
+                }
 
-            // Change CheckBox
-            for(var i=0; i<checkBox.length; i++) {
-                    if(this.$store.state.projects[i].project_check == 0) {
-                        // Check False
+                // Change CheckBox
+                for(var i=0; i<checkBox.length; i++) {
+                    // Check False
+                    if(vuex_Projects[i].project_check == 0) {
                         console.log("Change False[" + i +"]");
                         checkBox[i].checked = false;
                         
+                        console.log("---------------- Project Days ----------------- \n");
+                            // Get Days (Today, endDay)
+                            var today = new Date();
+                            var endDay = new Date(vuex_Projects[i].project_endDay);
+                            console.log("Today: " + today);
+                            console.log("End Day: " + endDay);
+
+                            // Compare Days
+                            if(today.getTime() > endDay.getTime()) {
+                                // Project 'delayed / danger'
+                                console.log("현재 프로젝트가 지연되고 있습니다.");
+                                vuex_Projects[i].project_status = "delayed"
+                                vuex_Projects[i].project_statusType = "danger"
+                            }
+                            else {
+                                // Project 'on schedule / info'
+                                console.log("현재 프로젝트가 잘 진행되고 있습니다.");
+                                vuex_Projects[i].project_status = "on schedule"
+                                vuex_Projects[i].project_statusType = "info"
+                            }
+                        console.log("----------------------------------------------- \n");
                     }
-                    
-                    if(this.$store.state.projects[i].project_check == 1) {
-                        // Check True
+
+                    // Check True
+                    if(vuex_Projects[i].project_check == 1) {
                         console.log("Change True[" + i +"]");
                         checkBox[i].checked = true;
+                        console.log("---------------- Project Days ----------------- \n");
+                            // Project 'completed / success'
+                            console.log("현재 프로젝트가 완료되어 있습니다.");
+                            vuex_Projects[i].project_status = "completed"
+                            vuex_Projects[i].project_statusType = "success"
+                        console.log("----------------------------------------------- \n");
                     }
-            }
+                }
+                // Vuex에 상태값 데이터 커밋
+                store.commit('setProjects', {
+                    projects: vuex_Projects
+                });
 
-            // After CheckBox
-            for(var i=0; i<checkBox.length; i++) {
-                console.log("After CheckBox[" + i + "]: " + checkBox[i].checked);
-            }
-
-            // Mounted End - Console()
-            console.log("-----------------------------------------------");
-            console.log(" ");
+                // After CheckBox
+                for(var i=0; i<checkBox.length; i++) {
+                    console.log("After CheckBox[" + i + "]: " + checkBox[i].checked);
+                }
+            console.log("----------------------------------------------- \n");
+            // Mounted End - Console() //
         });
     }
 }
