@@ -56,20 +56,6 @@
           <span class="nav-link-inner--text">Register</span>
         </b-nav-item>
 
-        <!-- Nav item: Projects 
-        <b-nav-item to="/dashboard">
-          <-- Icon & Name 
-          <i class="ni ni-calendar-grid-58"></i> <span class="nav-link-inner--text">Projects</span>
-        </b-nav-item>
-        -->
-
-        <!-- Nave Item: Profile 
-        <b-nav-item to="/profile">
-          <i class="ni ni-single-02"></i>
-          <span class="nav-link-inner--text">Profile</span>
-        </b-nav-item>
-        -->
-
       </b-navbar-nav>
     </template>
     </base-nav>
@@ -146,14 +132,8 @@
         createPersistedState()
       ],
       state: {
-        projects: null
-      },
-      // 동적인 상태의 데이터 및 함수 (commit호출)
-      mutations: {
-        setProjects(state, payload) {
-          console.log("Set Projects Now... (Title): " + payload.projects[0].project_title);
-          state.projects = payload.projects;
-        }
+        projects: null,
+        showAddPage_value: false
       }
   });
 

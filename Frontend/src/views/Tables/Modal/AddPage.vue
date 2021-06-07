@@ -281,7 +281,6 @@ export default {
           return this.model.purpose = this.model.purpose.slice(0,-1);
         }
     },
-
     // Submit 정규식
     onlyInputOne(){
       // LOG
@@ -390,7 +389,7 @@ export default {
   z-index: 1000;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 180%;
   height: 100%;
   background-color: rgba(0, 0, 0, .5);
   display: table;

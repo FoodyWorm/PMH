@@ -93,9 +93,7 @@
         </el-table>
 
     </b-card>
-    <!-- Add Modal -->
-    <AddPage v-if="showModal" @close="showModal = false">
-    </AddPage>
+    
 </div>
 </template>
 
@@ -106,7 +104,6 @@
 import { Table, TableColumn } from 'element-ui';
 import BaseCheckbox from '../../../components/Inputs/BaseCheckbox.vue';
 import BaseButton from '../../../components/BaseButton.vue';
-import AddPage from "../Modal/AddPage.vue";
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import Vue from 'vue';
@@ -135,14 +132,12 @@ export default {
     components: {
         BaseCheckbox,
         BaseButton,
-        AddPage,
         [Table.name]:Table,
         [TableColumn.name]: TableColumn
     },
     data() {
         return {
             currentPage: 1,
-            showModal: false,
             projects: this.$store.state.projects
         }
     },
