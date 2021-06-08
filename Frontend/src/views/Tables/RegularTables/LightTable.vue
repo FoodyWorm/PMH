@@ -12,7 +12,6 @@
                     <i class="ni ni-settings-gear-65"></i>
                 </template>
                 <b-dropdown-item id="show-modal" v-on:click="openAddPage(true)">ADD</b-dropdown-item>
-                <b-dropdown-item href="#">View</b-dropdown-item>
                 <b-dropdown-item href="#">Schedules</b-dropdown-item>
             </b-dropdown>
         </b-card-header>
@@ -40,7 +39,7 @@
                              prop="project_title"
                              min-width="310px"
                              v-slot="{row}">
-                             <span class="title" v-bind:style="row.project_check == 1 ? {'text-decoration': 'line-through double'} : {'text-decoration': 'none'}">{{ row.project_title }}</span>
+                             <span v-on:click="openViewPage(true)" class="title" v-bind:style="row.project_check == 1 ? {'text-decoration': 'line-through double'} : {'text-decoration': 'none'}">{{ row.project_title }}</span>
             </el-table-column>
 
 
@@ -125,6 +124,10 @@ const store = new Vuex.Store({
       showAddPage(state, payload) {
         console.log("showValue: " + payload.showValue);
         state.showAddPage_value = payload.showValue;
+      },
+      showViewPage(state, payload) {
+        console.log("Show ViewPage-Value: " + payload.showValue);
+        state.showViewPage_value = payload.showValue;
       }
     }
 });
@@ -279,8 +282,18 @@ export default {
             setTimeout(function(){
               location.reload();
             },1);
+        },
+        openViewPage(value) {
+            console.log("Commit Data: " + value);
+            // Vuex에 데이터 커밋
+            store.commit('showViewPage', {
+                showValue: value
+            });
+            // 새로고침
+            setTimeout(function(){
+              location.reload();
+            },1);
         }
-
     },
     mounted() {
         // 모든 화면이 렌더링된 후 실행합니다.

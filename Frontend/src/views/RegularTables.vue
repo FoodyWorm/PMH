@@ -18,8 +18,12 @@
     </b-container>
 
     <!-- Add Modal -->
-    <AddPage v-if="showModal" @closeAdd="closeAddPage(false)">
+    <AddPage v-if="showAddModal" @closeAdd="closeAddPage(false)">
     </AddPage>
+    
+    <!-- View Modal -->
+    <ViewPage v-if="showViewModal" @closeView="closeViewPage(false)">
+    </ViewPage>
 
   </div>
 </template>
@@ -30,6 +34,7 @@
   import projects from "./Tables/projects"
   import LightTable from "./Tables/RegularTables/LightTable";
   import AddPage from "./Tables/Modal/AddPage.vue";
+  import ViewPage from "./Tables/Modal/ViewPage.vue";
 
   import Vue from "vue";
   import Vuex from "vuex";
@@ -47,6 +52,10 @@
         showAddPage(state, payload) {
           console.log("Show AddPage-Value: " + payload.showValue);
           state.showAddPage_value = payload.showValue;
+        },
+        showViewPage(state, payload) {
+          console.log("Show ViewPage-Value: " + payload.showValue);
+          state.showViewPage_value = payload.showValue;
         }
       }
   }); 
@@ -55,6 +64,7 @@
     components: {
       LightTable,
       AddPage,
+      ViewPage,
       [Dropdown.name]: Dropdown,
       [DropdownItem.name]: DropdownItem,
       [DropdownMenu.name]: DropdownMenu,
@@ -64,12 +74,16 @@
     data() {
       return {
         projects,
-        showModal: this.$store.state.showAddPage_value
+        showAddModal: this.$store.state.showAddPage_value,
+        showViewModal: this.$store.state.showViewPage_value
       };
     },
     watch: {
-      showModal: function() {
-        this.showModal = this.$store.state.showAddPage_value
+      showAddModal: function() {
+        this.showAddModal = this.$store.state.showAddPage_value
+      },
+      showViewModal: function() {
+        this.showViewModal = this.$store.state.showViewPage_value
       }
     },
     methods: {
@@ -77,6 +91,17 @@
         console.log("Commit Data: " + value);
         // Vuex에 데이터 커밋
         store.commit('showAddPage', {
+            showValue: value
+        });
+        // 새로고침
+        setTimeout(function(){
+          location.reload();
+        },1);
+      },
+      closeViewPage(value) {
+        console.log("Commit Data: " + value);
+        // Vuex에 데이터 커밋
+        store.commit('showViewPage', {
             showValue: value
         });
         // 새로고침
@@ -103,5 +128,12 @@
 .el-table.table-dark td,
 .el-table.table-dark th.is-leaf{
   border-bottom: none;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 1;
 }
 </style>

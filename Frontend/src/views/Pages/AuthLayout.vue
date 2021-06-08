@@ -133,7 +133,8 @@
       ],
       state: {
         projects: null,
-        showAddPage_value: false
+        showAddPage_value: false,
+        showViewPage_value: false
       }
   });
 

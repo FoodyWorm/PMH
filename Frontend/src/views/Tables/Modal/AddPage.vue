@@ -2,7 +2,7 @@
   <!-- Modal -->
   <transition name="modal">
     <!-- Background -->
-    <div class="modal-mask" @click="$emit('closeAdd')">
+    <div class="modal-mask">
 
     <!-- Space -->
     <div class="modal-wrapper" >
@@ -83,7 +83,7 @@
             </base-input>
 
             <!-- EndDay -->
-            <base-input label="EndDay" prepend-icon="ni ni-calendar-grid-58">
+            <base-input label="End Day" prepend-icon="ni ni-calendar-grid-58">
               <flat-picker slot-scope="{focus, blur}"
                           @on-open="focus"
                           @on-close="blur"

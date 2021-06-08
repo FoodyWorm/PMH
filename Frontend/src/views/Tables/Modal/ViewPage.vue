@@ -2,7 +2,7 @@
   <!-- Modal -->
   <transition name="modal">
     <!-- Background -->
-    <div class="modal-mask" @click="$emit('closeView')">
+    <div class="modal-mask">
     <!-- Space -->
     <div class="modal-wrapper" >
     <!-- Content -->
@@ -16,80 +16,49 @@
             <base-button size="sm" outline type="default" id="remove_Button" @click="$emit('closeView')">
               <i class="ni ni-fat-remove" id="remove"></i>
             </base-button>
+
+            
         </div>
 
         <!-- Body -->
         <div class="modal-body">
+            <hr />
             <!-- Title -->
-            <base-input class="mb-0 mt-0"
-                        name="Title"
-                        :rules="{required: true, min: 1, max:30}"
-                        prepend-icon="ni ni-caps-small"
-                        type="text"
-                        label="Title"
-                        placeholder="Title"
-                        v-model="model.title"
-                        v-on:keydown="onlyTitle"
-                        v-on:keyup="onlyTitle"
-            >
-            </base-input>
-
+            <h2>Title</h2>
+            <p class="lead">
+                Project Management HomePage
+            </p> 
+          
             <!-- Department -->
-            <base-input class="mb-0 mt-0"
-                        prepend-icon="ni ni-badge"
-                        type="select"
-                        label="Department"
-            >
-            </base-input>
+            <h2>Department</h2>
+            <p class="lead">
+                스마트팜
+            </p>
 
             <!-- Users -->
-            <base-input class="mb-0 mt-0"
-                        name="Users"
-                        :rules="{required: true, min: 1, max:13}"
-                        prepend-icon="ni ni-single-02"
-                        type="text"
-                        label="Users"
-                        placeholder="Users"
-                        v-model="model.users"
-                        v-on:keydown="onlyUsers"
-                        v-on:keyup="onlyUsers"
-            >
-            </base-input>
+            <h2>Users</h2>
+            <p class="lead">
+                김장은
+            </p>
 
             <!-- StartDay -->
-            <base-input class="mb-0 mt-0" label="Start Day" prepend-icon="ni ni-calendar-grid-58">
-              <flat-picker slot-scope="{focus, blur}"
-                          @on-open="focus"
-                          @on-close="blur"
-                          :config="{allowInput: true}"
-                          class="form-control datepicker"
-                          v-model="model.startDay">
-              </flat-picker>
-            </base-input>
+            <h2>StartDay</h2>
+            <p class="lead">
+               2021-05-01
+            </p>
 
             <!-- EndDay -->
-            <base-input label="EndDay" prepend-icon="ni ni-calendar-grid-58">
-              <flat-picker slot-scope="{focus, blur}"
-                          @on-open="focus"
-                          @on-close="blur"
-                          :config="{allowInput: true}"
-                          class="form-control datepicker"
-                          v-model="model.endDay">
-              </flat-picker>
-            </base-input>
-            
+            <h2>EndDay</h2>
+            <p class="lead">
+                2021-05-14
+            </p>
+
             <!-- Purpose -->
-            <h4>Purpose</h4>
-            <b-form-textarea
-              id="textarea"
-              :rules="{required: true, min: 1, max:100}"
-              v-model="model.purpose"
-              placeholder="purpose..."
-              rows="3"
-              max-rows="6"
-              v-on:keydown="onlyPurpose"
-              v-on:keyup="onlyPurpose"
-            ></b-form-textarea>
+            <h2>Purpose</h2>
+            <p class="lead">
+                사내 업무 효율을 최대로 증진시키기 위한 홈페이지를 제작합니다.
+            </p>
+
         </div>
 
     </div>
@@ -155,29 +124,22 @@ export default {
 
 <style scoped>
 /* Content */
-#title {
-  margin: 0px;
-  padding: 0px;
-}
-#remove_Button {
+hr {
     margin: 0px;
     padding: 0px;
-    border-style: none;
+    background: rgb(187, 185, 185);
 }
-
-#remove {
+h2 {
     margin: 0px;
     padding: 0px;
-    font-size: 2rem;
+    margin-top: 1rem;
 }
 
-#submit {
-  margin: 0px;
-  padding: 0.5rem;
-  width: 100%;
+p {
+    margin: 0px;
+    padding: 0px;
+    margin-bottom: 1rem;
 }
-
-
 
 /* Modal */
 .modal-mask {
@@ -212,7 +174,7 @@ export default {
 
 .modal-body {
   margin: 0px;
-  padding: 0px;
+  padding: 1rem;
 }
 
 .modal-footer {
