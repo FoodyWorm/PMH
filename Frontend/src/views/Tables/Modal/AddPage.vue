@@ -2,7 +2,7 @@
   <!-- Modal -->
   <transition name="modal">
     <!-- Background -->
-    <div class="modal-mask">
+    <div class="modal-mask" @click="$emit('closeAdd')">
 
     <!-- Space -->
     <div class="modal-wrapper" >
@@ -15,7 +15,7 @@
             <h1 id="title">Project Add</h1>
 
             <!-- header close -->
-            <base-button size="sm" outline type="default" id="remove_Button" @click="$emit('close')">
+            <base-button size="sm" outline type="default" id="remove_Button" @click="$emit('closeAdd')">
               <i class="ni ni-fat-remove" id="remove"></i>
             </base-button>
         </div>
@@ -139,14 +139,15 @@ const store = new Vuex.Store({
     plugins: [
       createPersistedState()
     ],
-    state: {
-      projects: null
-    },
     // 동적인 상태의 데이터 및 함수 (commit호출)
     mutations: {
       setProjects(state, payload) {
         console.log("Set Projects Now... (Title) " + payload.projects[0].project_title);
         state.projects = payload.projects;
+      },
+      showAddPage(state, value) {
+          console.log("Show AddPage-Value: " + value);
+          state.showAddPage_value = value;
       }
     }
 });
@@ -389,8 +390,8 @@ export default {
   z-index: 1000;
   top: 0;
   left: 0;
-  width: 180%;
-  height: 100%;
+  width: 100%;
+  height: 200%;
   background-color: rgba(0, 0, 0, .5);
   display: table;
   transition: opacity .3s ease;
@@ -404,7 +405,7 @@ export default {
 
 .modal-container {
   z-index: 1002;
-  width: 17rem;
+  width: 90%;
   margin: 0px auto;
   padding: 0.5rem 0.5rem;
   background-color: #fff;

@@ -11,7 +11,7 @@
                 <template v-slot:button-content>
                     <i class="ni ni-settings-gear-65"></i>
                 </template>
-                <b-dropdown-item id="show-modal" v-on:click="showModal = true">ADD</b-dropdown-item>
+                <b-dropdown-item id="show-modal" v-on:click="openAddPage(true)">ADD</b-dropdown-item>
                 <b-dropdown-item href="#">View</b-dropdown-item>
                 <b-dropdown-item href="#">Schedules</b-dropdown-item>
             </b-dropdown>
@@ -91,7 +91,6 @@
                 </template>
             </el-table-column>
         </el-table>
-
     </b-card>
     
 </div>
@@ -122,6 +121,10 @@ const store = new Vuex.Store({
       setProjects(state, payload) {
         console.log("Set Projects Now... (Title) ");
         state.projects = payload.projects;
+      },
+      showAddPage(state, payload) {
+        console.log("showValue: " + payload.showValue);
+        state.showAddPage_value = payload.showValue;
       }
     }
 });
@@ -265,7 +268,19 @@ export default {
             store.commit('setProjects', {
                 projects: temp
             });
+        },
+        openAddPage(value) {
+            console.log("Commit Data: " + value);
+            // Vuex에 데이터 커밋
+            store.commit('showAddPage', {
+                showValue: value
+            });
+            // 새로고침
+            setTimeout(function(){
+              location.reload();
+            },1);
         }
+
     },
     mounted() {
         // 모든 화면이 렌더링된 후 실행합니다.

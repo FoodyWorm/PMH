@@ -16,8 +16,9 @@
       <!-- 공백 추가하여 위치 조정 -->
       <div class="mt-5"></div>
     </b-container>
+
     <!-- Add Modal -->
-    <AddPage v-if="true" @close="showModal = false">
+    <AddPage v-if="showModal" @closeAdd="closeAddPage(false)">
     </AddPage>
 
   </div>
@@ -26,12 +27,12 @@
 <script>
 /* eslint-disable */
   import { Dropdown, DropdownItem, DropdownMenu, Table, TableColumn } from 'element-ui';
-  import projects from './Tables/projects'
+  import projects from "./Tables/projects"
   import LightTable from "./Tables/RegularTables/LightTable";
   import AddPage from "./Tables/Modal/AddPage.vue";
 
-  import Vue from 'vue';
-  import Vuex from 'vuex';
+  import Vue from "vue";
+  import Vuex from "vuex";
   import createPersistedState from "vuex-persistedstate";
   Vue.use(Vuex); 
 
@@ -43,16 +44,12 @@
       ],
       // 동적인 상태의 데이터 및 함수 (commit호출)
       mutations: {
-        setProjects(state, payload) {
-          console.log("Set Projects Now... (Title) ");
-          state.projects = payload.projects;
-        },
-        showAddPage(state, value) {
-          console.log("Show AddPage-Value: " + value);
-          state.showAddPage_value = value;
+        showAddPage(state, payload) {
+          console.log("Show AddPage-Value: " + payload.showValue);
+          state.showAddPage_value = payload.showValue;
         }
       }
-  });
+  }); 
 
   export default {
     components: {
@@ -67,8 +64,26 @@
     data() {
       return {
         projects,
-        showModal: false
+        showModal: this.$store.state.showAddPage_value
       };
+    },
+    watch: {
+      showModal: function() {
+        this.showModal = this.$store.state.showAddPage_value
+      }
+    },
+    methods: {
+      closeAddPage(value) {
+        console.log("Commit Data: " + value);
+        // Vuex에 데이터 커밋
+        store.commit('showAddPage', {
+            showValue: value
+        });
+        // 새로고침
+        setTimeout(function(){
+          location.reload();
+        },1);
+      }
     }
   };  
 </script>
