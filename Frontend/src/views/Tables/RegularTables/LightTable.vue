@@ -39,7 +39,7 @@
                              prop="project_title"
                              min-width="310px"
                              v-slot="{row}">
-                             <span v-on:click="openViewPage(true)" class="title" v-bind:style="row.project_check == 1 ? {'text-decoration': 'line-through double'} : {'text-decoration': 'none'}">{{ row.project_title }}</span>
+                             <span v-on:click="openViewPage(true, row.project_index)" class="title" v-bind:style="row.project_check == 1 ? {'text-decoration': 'line-through double'} : {'text-decoration': 'none'}">{{ row.project_title }}</span>
             </el-table-column>
 
 
@@ -128,6 +128,7 @@ const store = new Vuex.Store({
       showViewPage(state, payload) {
         console.log("Show ViewPage-Value: " + payload.showValue);
         state.showViewPage_value = payload.showValue;
+        state.showViewIndex_value = payload.showIndex;
       }
     }
 });
@@ -283,11 +284,12 @@ export default {
               location.reload();
             },1);
         },
-        openViewPage(value) {
-            console.log("Commit Data: " + value);
+        openViewPage(value, index) {
+            console.log("Commit Data: " + value + ", " + (index - 1));
             // Vuex에 데이터 커밋
             store.commit('showViewPage', {
-                showValue: value
+                showValue: value,
+                showIndex: (index - 1)
             });
             // 새로고침
             setTimeout(function(){

@@ -16,8 +16,6 @@
             <base-button size="sm" outline type="default" id="remove_Button" @click="$emit('closeView')">
               <i class="ni ni-fat-remove" id="remove"></i>
             </base-button>
-
-            
         </div>
 
         <!-- Body -->
@@ -26,37 +24,37 @@
             <!-- Title -->
             <h2>Title</h2>
             <p class="lead">
-                Project Management HomePage
+                {{ title }}
             </p> 
           
             <!-- Department -->
             <h2>Department</h2>
             <p class="lead">
-                스마트팜
+                {{ department }}
             </p>
 
             <!-- Users -->
             <h2>Users</h2>
             <p class="lead">
-                김장은
+                {{ users }}
             </p>
 
             <!-- StartDay -->
             <h2>StartDay</h2>
             <p class="lead">
-               2021-05-01
+               {{ startDay }}
             </p>
 
             <!-- EndDay -->
             <h2>EndDay</h2>
             <p class="lead">
-                2021-05-14
+                {{ endDay }}
             </p>
 
             <!-- Purpose -->
             <h2>Purpose</h2>
             <p class="lead">
-                사내 업무 효율을 최대로 증진시키기 위한 홈페이지를 제작합니다.
+                {{ purpose }}
             </p>
 
         </div>
@@ -78,7 +76,6 @@ import flatPicker from "vue-flatpickr-component";
 import "flatpickr/dist/flatpickr.css";
 Vue.use(Vuex);
 
-
 // Vuex에 데이터 저장
 const store = new Vuex.Store({
     // 쿠키나 저장소를 활용하지 않아도 되도록, Vuex의 데이터를 자동으로 저장소에 저장해주는 플러그인
@@ -87,6 +84,7 @@ const store = new Vuex.Store({
     ]
 });
 
+
 export default {
   components: {
       flatPicker
@@ -94,30 +92,51 @@ export default {
   data() {
       return {
         show: false,
-        model: {
-          title: '',
-          department: 'Department',
-          users: '',
-          startDay: '',
-          endDay: '',
-          purpose: ''
-        }
+        title: '',
+        department: '',
+        users: '',
+        startDay: '',
+        endDay: '',
+        purpose: ''
       }
   },
-  methods: {
-    /*/ Todo Save - Vuex
-    console.log("Get Projects: " + response.data);
-    console.log("Set Projects to Vuex...");
+  created() {
+    // Get - Vuex Project & Index
+    console.log("--- Created ---");
+    var projects = this.$store.state.projects;
+    var index = this.$store.state.showViewIndex_value;
+    console.log("Projects: " + projects + ", Index: " + index);
 
-    // Vuex에 데이터 커밋
-    store.commit('setProjects', {
-        projects: response.data
-    });
-    // 새로고침
-    setTimeout(function(){
-        location.reload();
-    },1000);
-    console.log(true);*/
+    // Making - Date Form
+    var startDay = new Date(projects[index].project_startDay);
+      var sYear = startDay.getFullYear();
+      var sMonth = startDay.getMonth() + 1;
+          sMonth = sMonth > 9 ? sMonth : "0" + sMonth;
+      var sDay = startDay.getDate();
+          sDay = sDay > 9 ? sDay : "0" + sDay;
+
+    var endDay  = new Date(projects[index].project_endDay);
+      var eYear = endDay.getFullYear();
+      var eMonth = endDay.getMonth() + 1;
+          eMonth = eMonth > 9 ? eMonth : "0" + eMonth;
+      var eDay = endDay.getDate();
+          eDay = eDay > 9 ? eDay : "0" + eDay;
+    
+    console.log("Start Day: " + startDay + ", End Day: " + endDay);
+    console.log("Make Start Day: " + sYear + sMonth + sDay);
+    console.log("Make Etart Day: " + eYear + eMonth + eDay);
+
+    // Save - Date
+    startDay = sYear + "-" + sMonth + "-" + sDay;
+    endDay = eYear + "-" + eMonth + "-" + eDay;
+
+    // Set - Projects Data
+    this.title = projects[index].project_title;
+    this.department = projects[index].project_department;
+    this.users = projects[index].project_users;
+    this.startDay = startDay;
+    this.endDay = endDay;
+    this.purpose = projects[index].project_purpose;
   }
 }
 </script>
