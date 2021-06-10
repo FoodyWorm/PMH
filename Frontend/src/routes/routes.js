@@ -3,6 +3,9 @@ import DashboardLayout from '@/views/Layout/DashboardLayout.vue';
 import AuthLayout from '@/views/Pages/AuthLayout.vue';
 import NotFound from '@/views/NotFoundPage.vue';
 
+// 아름다운 알림창 생성
+import Swal from 'sweetalert2'
+
 // 라우터
 const routes = [
   // 시작, 서브 요청 및 컴포넌트 (Login, Register, NotFound)
@@ -38,7 +41,7 @@ const routes = [
     name: 'dashboard_layout',
     component: DashboardLayout,
     // 페이지 테스트를 위한 임시 주석
-    /*beforeEnter: function(to, from, next) {
+    beforeEnter: function(to, from, next) {
       // 인증 값 검증 로직
       console.log("현재 쿠키 값: " + document.cookie);
       if(document.cookie == "status=true") {
@@ -47,9 +50,15 @@ const routes = [
       else {
         console.log('요청한 쿠키 값이 옳바르지 않습니다.');
         next('/login');
+        Swal.fire({
+          title: 'Warning!!!',
+          text: '옳바르지 않은 접근 방법입니다.',
+          icon: 'error',
+          confirmButtonText: '확인'
+        });
       }
 
-    },*/
+    },
     // 메인 요청 및 컴포넌트 (Projects, Add, User Profile)
     children: [
       {

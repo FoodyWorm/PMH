@@ -16,6 +16,7 @@ import App from './App.vue';
 // 기본 라우터 생성
 import router from './routes/router';
 
+
 // 플러그인 연결
 Vue.use(DashboardPlugin);
 Vue.use(Vuex);
@@ -28,7 +29,10 @@ const store = new Vuex.Store({
   ],
   // 정적인 상태의 데이터 (일반호출 - 값의 변경은 mutations를 통해서만 가능하다.)
   state: {
-      projects: null
+    projects: null,
+    showAddPage_value: false,
+    showViewPage_value: false,
+    showViewIndex_value: 0
   },
   // 동적인 상태의 데이터 및 함수 (commit호출)
   mutations: {

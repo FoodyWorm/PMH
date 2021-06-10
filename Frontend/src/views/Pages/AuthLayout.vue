@@ -130,13 +130,7 @@
       // 쿠키나 저장소를 활용하지 않아도 되도록, Vuex의 데이터를 자동으로 저장소에 저장해주는 플러그인
       plugins: [
         createPersistedState()
-      ],
-      state: {
-        projects: null,
-        showAddPage_value: false,
-        showViewPage_value: false,
-        showViewIndex_value: 0
-      }
+      ]
   });
 
   export default {
