@@ -40,7 +40,7 @@ const routes = [
     path: '/',
     name: 'dashboard_layout',
     component: DashboardLayout,
-    // 페이지 테스트를 위한 임시 주석
+    /*/ 페이지 테스트를 위한 임시 주석
     beforeEnter: function(to, from, next) {
       // 인증 값 검증 로직
       console.log("현재 쿠키 값: " + document.cookie);
@@ -58,7 +58,7 @@ const routes = [
         });
       }
 
-    },
+    },*/
     // 메인 요청 및 컴포넌트 (Projects, Add, User Profile)
     children: [
       {
