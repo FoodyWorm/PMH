@@ -125,13 +125,20 @@
   Vue.use(Vuex);
 
 
-  // Vuex에 데이터 저장
-  const store = new Vuex.Store({
-      // 쿠키나 저장소를 활용하지 않아도 되도록, Vuex의 데이터를 자동으로 저장소에 저장해주는 플러그인
-      plugins: [
-        createPersistedState()
-      ]
-  });
+// Vuex의 관리포인트 - Store: (state[상태 Data], mutations[상태변경-동기], actions[상태변경요청-비동기], getter[상태업로드])
+const store = new Vuex.Store({
+    // 쿠키나 저장소를 활용하지 않아도 되도록, Vuex의 데이터를 자동으로 저장소에 저장해주는 플러그인
+    plugins: [
+      createPersistedState()
+    ],
+    // 동적인 상태의 데이터 및 함수 (commit호출)
+    mutations: {
+      setProjects(state, payload) {
+        console.log("Set Projects Now... (Title) ");
+        state.projects = payload.projects;
+      }
+    }
+});
 
   export default {
     components: {
